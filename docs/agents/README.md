@@ -15,7 +15,7 @@
 1. Agent 4 theo dõi mục tiêu, trạng thái và các quyết định; giao hoặc đề xuất việc cho agent 1–3 qua agent điều phối.
 2. Agent 2 cung cấp tài liệu có nguồn và đánh dấu điều chưa chắc. Agent 1 và 3 dùng tài liệu đó để chọn cách triển khai, nhưng phải ghi lại kết quả chạy thực tế.
 3. Agent 1 sở hữu phần robot và Gazebo; agent 3 sở hữu thuật toán SLAM, tích hợp và kiểm thử. Khi cần sửa cùng tệp, agent điều phối chỉ định một người sửa, người còn lại phản hồi hoặc kiểm tra.
-4. Agent 4 cập nhật báo cáo theo ngày trong `docs/WORK_LOG.md` khi người dùng ra tín hiệu “nghỉ”. Báo cáo phân biệt việc đã làm, đã kiểm chứng và còn vướng; việc tồn đọng được xếp `critical`, `warn` hoặc `info`.
+4. Agent 4 cập nhật báo cáo trong `docs/work_logs/YYYY-MM-DD/WORK_LOG.md` và mục lục `docs/WORK_LOG.md` khi người dùng ra tín hiệu “nghỉ”. Báo cáo phân biệt việc đã làm, đã kiểm chứng và còn vướng; việc tồn đọng được xếp `critical`, `warn` hoặc `info`.
 5. Agent 5 đọc lại báo cáo và tài liệu agent 4 để trả lời câu hỏi. Nếu thiếu căn cứ hoặc thấy mâu thuẫn, agent 5 được hỏi lại agent 1–4, rồi nêu rõ bằng chứng và mức độ chắc chắn. Với vị trí cụ thể người dùng nghi ngờ, chỉ mở rộng kiểm tra lại khi người dùng cho phép; không tự sửa báo cáo thay agent 4.
 
 Agent phụ có thể không còn hoạt động ở buổi sau. Tài liệu trong repo là nguồn bàn giao; agent điều phối có thể gọi lại vai trò tương ứng khi có nhiệm vụ mới.

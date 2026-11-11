@@ -13,4 +13,4 @@ Các quyết định kỹ thuật quan trọng được ghi trong `docs/decision
 
 Năm vai trò agent và cách phối hợp được mô tả trong [hướng dẫn agent](docs/agents/README.md).
 
-Khi kết thúc buổi làm việc bằng tín hiệu **“nghỉ”**, các thay đổi được tổng kết theo ngày trong [nhật ký làm việc](docs/WORK_LOG.md).
+Khi kết thúc buổi làm việc bằng tín hiệu **“nghỉ”**, các thay đổi được tổng kết trong `docs/work_logs/YYYY-MM-DD/WORK_LOG.md` theo ngày địa phương `Asia/Ho_Chi_Minh`; xem [mục lục nhật ký](docs/WORK_LOG.md).
