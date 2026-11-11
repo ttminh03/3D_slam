@@ -1,0 +1,16 @@
+# Dữ liệu cảm biến và kết quả chạy cục bộ
+data/
+datasets/
+outputs/
+logs/
+log/
+*.bag
+*.db3
+*.mcap
+
+# Sản phẩm build và môi trường phát triển
+build/
+install/
+__pycache__/
+.venv/
+.DS_Store
