@@ -1,0 +1,174 @@
+<?xml version="1.0"?>
+<sdf version="1.6">
+  <world name="amr_demo">
+    <include><uri>model://sun</uri></include>
+    <!-- Ground top is z=0; size and walls are 40 x 40 m. -->
+    <model name="ground">
+      <static>true</static><pose>0 0 -0.1 0 0 0</pose>
+      <link name="surface">
+        <collision name="collision"><geometry><box><size>40 40 0.2</size></box></geometry></collision>
+        <visual name="visual">
+          <geometry><box><size>40 40 0.2</size></box></geometry>
+          <material><ambient>0.72 0.72 0.68 1</ambient><diffuse>0.72 0.72 0.68 1</diffuse></material>
+        </visual>
+      </link>
+    </model>
+
+    <!-- Four 4 m high walls enclose a 40 x 40 m arena. -->
+    <model name="north_boundary">
+      <static>true</static><pose>0 19.9 2 0 0 0</pose>
+      <link name="body">
+        <collision name="collision"><geometry><box><size>40 0.2 4</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>40 0.2 4</size></box></geometry></visual>
+      </link>
+    </model>
+    <model name="south_boundary">
+      <static>true</static><pose>0 -19.9 2 0 0 0</pose>
+      <link name="body">
+        <collision name="collision"><geometry><box><size>40 0.2 4</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>40 0.2 4</size></box></geometry></visual>
+      </link>
+    </model>
+    <model name="east_boundary">
+      <static>true</static><pose>19.9 0 2 0 0 0</pose>
+      <link name="body">
+        <collision name="collision"><geometry><box><size>0.2 40 4</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>0.2 40 4</size></box></geometry></visual>
+      </link>
+    </model>
+    <model name="west_boundary">
+      <static>true</static><pose>-19.9 0 2 0 0 0</pose>
+      <link name="body">
+        <collision name="collision"><geometry><box><size>0.2 40 4</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>0.2 40 4</size></box></geometry></visual>
+      </link>
+    </model>
+
+    <!-- Origin is clear in a 6 x 6 m square. North-east walls form a 2.8 m clear corridor. -->
+    <model name="ne_wall_west">
+      <static>true</static><pose>5 9 2 0 0 0</pose>
+      <link name="body">
+        <collision name="collision"><geometry><box><size>0.2 8 4</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>0.2 8 4</size></box></geometry></visual>
+      </link>
+    </model>
+    <model name="ne_wall_east">
+      <static>true</static><pose>8 9 2 0 0 0</pose>
+      <link name="body">
+        <collision name="collision"><geometry><box><size>0.2 8 4</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>0.2 8 4</size></box></geometry></visual>
+      </link>
+    </model>
+    <model name="ne_low_block">
+      <static>true</static><pose>13 8 0.35 0 0 0</pose>
+      <link name="body">
+        <collision name="collision"><geometry><box><size>2 2 0.7</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>2 2 0.7</size></box></geometry></visual>
+      </link>
+    </model>
+
+    <!-- North-west crates: 2.5 m minimum gap between adjacent crates. -->
+    <model name="nw_crate_south_west">
+      <static>true</static><pose>-11 6 0.5 0 0 0</pose>
+      <link name="body">
+        <collision name="collision"><geometry><box><size>1.5 1.5 1</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>1.5 1.5 1</size></box></geometry></visual>
+      </link>
+    </model>
+    <model name="nw_crate_south_east">
+      <static>true</static><pose>-7 6 0.9 0 0 0</pose>
+      <link name="body">
+        <collision name="collision"><geometry><box><size>1.5 1.5 1.8</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>1.5 1.5 1.8</size></box></geometry></visual>
+      </link>
+    </model>
+    <model name="nw_crate_north_west">
+      <static>true</static><pose>-11 10 0.3 0 0 0</pose>
+      <link name="body">
+        <collision name="collision"><geometry><box><size>1.5 1.5 0.6</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>1.5 1.5 0.6</size></box></geometry></visual>
+      </link>
+    </model>
+    <model name="nw_crate_north_east">
+      <static>true</static><pose>-7 10 0.75 0 0 0</pose>
+      <link name="body">
+        <collision name="collision"><geometry><box><size>1.5 1.5 1.5</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>1.5 1.5 1.5</size></box></geometry></visual>
+      </link>
+    </model>
+
+    <!-- South-west shelves: 3 m clear aisle between the two rows. -->
+    <model name="sw_shelf_north">
+      <static>true</static><pose>-9 -6 1.1 0 0 0</pose>
+      <link name="body">
+        <collision name="collision"><geometry><box><size>4 0.6 2.2</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>4 0.6 2.2</size></box></geometry></visual>
+      </link>
+    </model>
+    <model name="sw_shelf_south">
+      <static>true</static><pose>-9 -9.6 0.9 0 0 0</pose>
+      <link name="body">
+        <collision name="collision"><geometry><box><size>4 0.6 1.8</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>4 0.6 1.8</size></box></geometry></visual>
+      </link>
+    </model>
+    <model name="sw_crate_west">
+      <static>true</static><pose>-15 -8 0.4 0 0 0</pose>
+      <link name="body">
+        <collision name="collision"><geometry><box><size>1.5 1.5 0.8</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>1.5 1.5 0.8</size></box></geometry></visual>
+      </link>
+    </model>
+    <model name="sw_crate_east">
+      <static>true</static><pose>-4 -8 0.6 0 0 0</pose>
+      <link name="body">
+        <collision name="collision"><geometry><box><size>1.2 1.2 1.2</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>1.2 1.2 1.2</size></box></geometry></visual>
+      </link>
+    </model>
+
+    <!-- South-east columns and extra blocks offer returns at varied heights. -->
+    <model name="se_column_north_west">
+      <static>true</static><pose>7 -7 1.25 0 0 0</pose>
+      <link name="body">
+        <collision name="collision"><geometry><cylinder><radius>0.5</radius><length>2.5</length></cylinder></geometry></collision>
+        <visual name="visual"><geometry><cylinder><radius>0.5</radius><length>2.5</length></cylinder></geometry></visual>
+      </link>
+    </model>
+    <model name="se_column_north_east">
+      <static>true</static><pose>11 -7 0.75 0 0 0</pose>
+      <link name="body">
+        <collision name="collision"><geometry><cylinder><radius>0.5</radius><length>1.5</length></cylinder></geometry></collision>
+        <visual name="visual"><geometry><cylinder><radius>0.5</radius><length>1.5</length></cylinder></geometry></visual>
+      </link>
+    </model>
+    <model name="se_column_south_west">
+      <static>true</static><pose>7 -11 0.5 0 0 0</pose>
+      <link name="body">
+        <collision name="collision"><geometry><cylinder><radius>0.5</radius><length>1</length></cylinder></geometry></collision>
+        <visual name="visual"><geometry><cylinder><radius>0.5</radius><length>1</length></cylinder></geometry></visual>
+      </link>
+    </model>
+    <model name="se_column_south_east">
+      <static>true</static><pose>11 -11 1 0 0 0</pose>
+      <link name="body">
+        <collision name="collision"><geometry><cylinder><radius>0.5</radius><length>2</length></cylinder></geometry></collision>
+        <visual name="visual"><geometry><cylinder><radius>0.5</radius><length>2</length></cylinder></geometry></visual>
+      </link>
+    </model>
+    <model name="se_low_crate">
+      <static>true</static><pose>15 -6 0.3 0 0 0</pose>
+      <link name="body">
+        <collision name="collision"><geometry><box><size>1.5 1.5 0.6</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>1.5 1.5 0.6</size></box></geometry></visual>
+      </link>
+    </model>
+    <model name="ne_high_block">
+      <static>true</static><pose>13 13 1.1 0 0 0</pose>
+      <link name="body">
+        <collision name="collision"><geometry><box><size>2 2 2.2</size></box></geometry></collision>
+        <visual name="visual"><geometry><box><size>2 2 2.2</size></box></geometry></visual>
+      </link>
+    </model>
+  </world>
+</sdf>
