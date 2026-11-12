@@ -6,6 +6,8 @@ Nền tảng giai đoạn đầu: **ROS trên nhánh `dev`**. Phiên bản ROS v
 
 Robot mục tiêu ban đầu là **AMR dùng LiDAR 3D và IMU**. Mô hình mẫu nằm trong `src/amr_description/`; kích thước, đặc tính cảm biến và phiên bản Gazebo vẫn cần chốt.
 
+Hướng triển khai đầu tiên được nghiên cứu là Cartographer 3D, theo [roadmap triển khai và học sâu Cartographer 3D](research/cartographer-3d-roadmap.md). Roadmap này là kế hoạch thử nghiệm và tự triển khai từng khối; việc chọn thuật toán cuối cùng vẫn phụ thuộc kết quả đo.
+
 ## Mốc 0 — Xác định bài toán
 
 - [ ] Chốt tốc độ, định dạng dữ liệu và thông số của LiDAR 3D + IMU đã chọn.
