@@ -45,6 +45,15 @@
     .card h3 { margin:0 0 6px; }
     .card p:last-child { margin:0; }
     .term { font-weight:750; color:#0c596f; }
+    .terms-in { color:var(--muted); font-size:.91rem; margin:-10px 0 19px; }
+    .terms-in a { margin-right:5px; }
+    .glossary { display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:15px; margin:20px 0; }
+    .glossary-group { background:#f6fafb; border:1px solid var(--line); border-radius:11px; padding:17px 20px; }
+    .glossary-group h3 { margin:0 0 11px; }
+    .glossary-group dl { margin:0; }
+    .glossary-group dt { color:#0c596f; font-weight:750; margin-top:13px; scroll-margin-top:18px; }
+    .glossary-group dt:first-of-type { margin-top:0; }
+    .glossary-group dd { margin:2px 0 0; font-size:.94rem; line-height:1.55; }
     .steps { counter-reset:step; list-style:none; padding:0; }
     .steps li { position:relative; padding:7px 0 7px 42px; margin:7px 0; }
     .steps li:before { counter-increment:step; content:counter(step); position:absolute; left:0; top:8px; width:27px; height:27px; line-height:27px; text-align:center; border-radius:50%; color:#fff; background:var(--teal); font-size:.83rem; font-weight:800; }
@@ -59,7 +68,7 @@
     th { background:#eaf4f5; }
     .small { color:var(--muted); font-size:.92rem; }
     footer { color:var(--muted); font-size:.85rem; text-align:center; padding:14px; }
-    @media(max-width:640px) { nav ol { columns:1; } .grid { grid-template-columns:1fr; } body { font-size:16px; } }
+    @media(max-width:640px) { nav ol { columns:1; } .grid,.glossary { grid-template-columns:1fr; } body { font-size:16px; } }
     @media print { body { background:#fff; } .hero { background:#fff; color:#111; padding:10px 0; } .hero p { color:#333; } .chip { border-color:#888; } .wrap { padding:0; } .intro,.lesson,.appendix { box-shadow:none; break-inside:avoid; } a { color:#111; } }
   </style>
 </head>
@@ -68,16 +77,18 @@
     <div class="eyebrow">Giáo trình nhập môn · LiDAR–IMU · đọc từng bài</div>
     <h1>Hiểu LIO-SAM từ con số 0</h1>
     <p>Từ câu hỏi “robot đang ở đâu?” đến cách LIO-SAM ghép LiDAR, IMU và đồ thị để dựng quỹ đạo cùng bản đồ 3D. Không cần biết SLAM hay tối ưu trước khi bắt đầu.</p>
-    <div class="meta"><span class="chip">10 bài tuần tự</span><span class="chip">Ví dụ và câu tự kiểm tra</span><span class="chip">Bài báo + mã gốc</span><span class="chip">Đọc được khi offline</span></div>
+    <div class="meta"><span class="chip">Bài 0 + 10 bài tuần tự</span><span class="chip">Ví dụ và câu tự kiểm tra</span><span class="chip">Bài báo + mã gốc</span><span class="chip">Đọc được khi offline</span></div>
   </div></header>
   <main class="wrap">
     <section class="intro" id="bat-dau">
       <h2>Cách học</h2>
       <p><strong>Tên gọi:</strong> LIO là <em>LiDAR–Inertial Odometry</em> (ước lượng chuyển động bằng LiDAR và IMU); SAM là <em>Smoothing And Mapping</em> (hiệu chỉnh quỹ đạo và dựng bản đồ). “Scan” là một lượt quét LiDAR; “frame” là gói quan sát ở một thời điểm hoặc một lượt quét.</p>
-      <p>Đọc theo thứ tự. Mỗi bài trả lời một câu hỏi, có ví dụ, một câu tự kiểm tra và đường dẫn đến nguồn gốc. Phần đọc code ở cuối mỗi bài chỉ để nhận diện tên hàm; bạn chưa cần hiểu C++.</p>
+      <p>Đọc <a href="#bai-0">Bài 0</a> trước để có từ vựng, rồi học theo thứ tự. Đầu mỗi bài có liên kết “Từ cần biết” để quay lại đúng định nghĩa khi gặp thuật ngữ lạ. Mỗi bài trả lời một câu hỏi, có ví dụ, một câu tự kiểm tra và đường dẫn đến nguồn gốc. Phần đọc code ở cuối mỗi bài chỉ để nhận diện tên hàm; bạn chưa cần hiểu C++.</p>
       <p><strong>Đích của giáo trình:</strong> tự kể lại luồng dữ liệu của LIO-SAM, giải thích vì sao từng bước tồn tại, và biết tìm bằng chứng trong bài báo hoặc source. Đây là giáo trình khái niệm, chưa phải hướng dẫn cài đặt hay chọn thuật toán cho robot của dự án.</p>
+      <p><strong>Học tiếp:</strong> khi đã nắm luồng cơ bản, mở <a href="lio-sam-nghien-cuu-sau.md">đề cương bước 2</a> để học sâu từng phép tính, đối chiếu source và triển khai theo các mốc kiểm chứng.</p>
       <p class="small">Phạm vi nguồn: bài báo LIO-SAM bản arXiv v3 (14/07/2020, công bố tại IROS 2020) và repository gốc <code>TixiaoShan/LIO-SAM</code>, nhánh <code>master</code> tại commit <code>0be1fbe</code>. Source được dẫn bằng liên kết cố định tới commit này. Bản gốc chủ yếu là ROS 1; README chỉ tới nhánh ROS 2 riêng.</p>
       <nav aria-label="Mục lục"><strong>Mục lục</strong><ol>
+        <li><a href="#bai-0">Bài 0: từ vựng nền tảng</a></li>
         <li><a href="#bai-1">SLAM giải quyết việc gì?</a></li><li><a href="#bai-2">LiDAR và IMU nhìn thấy gì?</a></li>
         <li><a href="#bai-3">Pose và hệ tọa độ</a></li><li><a href="#bai-4">Thời gian và khử méo scan</a></li>
         <li><a href="#bai-5">Từ điểm thô đến đặc trưng</a></li><li><a href="#bai-6">Scan matching với bản đồ cục bộ</a></li>
@@ -94,9 +105,53 @@
       </div>
     </section>
 
+    <article class="lesson" id="bai-0">
+      <div class="lesson-number">Bài 0 · Từ vựng để bắt đầu</div><h2>Đọc các bài sau mà không phải đoán thuật ngữ</h2>
+      <p class="goal"><strong>Sau bài này:</strong> nhận ra mỗi từ đang nói về <em>dữ liệu cảm biến</em>, <em>chuyển động</em>, <em>bản đồ</em> hay <em>cách sửa sai số</em>. Chưa cần thuộc hết; quay lại tra khi bài học dẫn tới đây.</p>
+      <div class="example"><strong>Một tình huống dùng xuyên suốt:</strong> robot đi qua một bức tường rồi quay lại. LiDAR thấy các điểm trên tường; IMU đo robot đang quay và tăng tốc. Hệ thống phải biết các điểm thuộc bức tường nào, robot ở đâu khi đo, và liệu bức tường vừa thấy có phải bức tường cũ.</div>
+      <div class="glossary">
+        <div class="glossary-group"><h3>1. Dữ liệu đi vào</h3><dl>
+          <dt id="tu-diem">Điểm LiDAR</dt><dd>Một phép đo khoảng cách được đổi thành tọa độ <code>x, y, z</code> trong hệ LiDAR. <code>intensity</code> là cường độ tín hiệu phản hồi, không phải tọa độ hay xác suất vật cản.</dd>
+          <dt id="tu-scan">Scan và point cloud</dt><dd><em>Scan</em> là một lượt lấy dữ liệu; <em>point cloud</em> là tập các điểm của lượt đó. Một scan chứa nhiều điểm, nhưng chưa tự cho biết pose của robot trong bản đồ.</dd>
+          <dt id="tu-time-ring">Timestamp, <code>time</code> và <code>ring</code></dt><dd><code>header.stamp</code> ghi thời gian của thông điệp. Với LiDAR quay, <code>time</code> của từng điểm cho biết điểm được đo lúc nào trong scan; <code>ring</code> cho biết kênh tia. Không thể lấy một timestamp của cả scan thay cho mọi thời gian từng điểm.</dd>
+          <dt id="tu-imu">IMU</dt><dd>Cảm biến đo gia tốc và tốc độ quay theo các trục. Nó không trực tiếp đo “robot đang ở tọa độ nào”; vị trí phải được ước lượng bằng cách tích lũy chuyển động.</dd>
+        </dl></div>
+        <div class="glossary-group"><h3>2. Robot ở đâu và đổi tọa độ ra sao?</h3><dl>
+          <dt id="tu-frame">Hệ tọa độ (frame)</dt><dd>Quy ước chọn gốc và các trục để mô tả điểm. Một điểm tường có tọa độ khác nhau trong <code>lidar_link</code>, <code>base_link</code> và <code>map</code>, dù vẫn là cùng một điểm vật lý.</dd>
+          <dt id="tu-pose">Pose</dt><dd>Vị trí <em>và</em> hướng của robot trong một hệ tọa độ, ở một thời điểm. Trong 3D có ba thành phần vị trí và ba bậc tự do quay; chỉ có <code>x,y,z</code> thì chưa đủ.</dd>
+          <dt id="tu-transform">Phép biến đổi và ngoại chuẩn</dt><dd>Phép biến đổi cho biết cách đổi điểm từ frame này sang frame khác. <em>Ngoại chuẩn</em> là vị trí và hướng gắn cố định giữa hai cảm biến, chẳng hạn LiDAR so với IMU.</dd>
+          <dt id="tu-odom">Odometry và quỹ đạo</dt><dd>Odometry ước lượng robot đã đi từ pose trước đến pose sau như thế nào. Nối nhiều ước lượng đó thành <em>quỹ đạo</em>. Sai số nhỏ lặp lại sẽ làm quỹ đạo trôi.</dd>
+        </dl></div>
+        <div class="glossary-group"><h3>3. Dữ liệu được giữ trong bản đồ</h3><dl>
+          <dt id="tu-dac-trung">Điểm đặc trưng: cạnh và mặt</dt><dd>Những điểm được chọn vì hình học lân cận hữu ích cho khớp scan. Điểm mặt nằm ở vùng tương đối phẳng; điểm cạnh nằm ở nơi hình học thay đổi mạnh. Mặt nghiêng vẫn là mặt phẳng; điểm xa chưa chắc là cạnh.</dd>
+          <dt id="tu-range-image">Range image</dt><dd>Cách xếp số đo LiDAR theo hàng kênh tia và cột góc quét, để tìm điểm lân cận trong một scan. Nó là bảng khoảng cách, không phải ảnh màu từ camera.</dd>
+          <dt id="tu-voxel">Voxel</dt><dd>Ô nhỏ trong không gian 3D, giống “pixel có thể tích”. Giảm mật độ theo voxel giữ ít điểm đại diện trong mỗi ô, giúp bản đồ nhẹ hơn; voxel không tự nhận dạng đâu là tường.</dd>
+          <dt id="tu-keyframe">Keyframe và bản đồ cục bộ</dt><dd>Keyframe là scan quan trọng được giữ lại cùng pose của nó. LIO-SAM ghép các keyframe gần đây để làm <em>bản đồ cục bộ</em> dùng khi khớp scan mới; bản đồ toàn cục liên quan tới toàn bộ hành trình.</dd>
+        </dl></div>
+        <div class="glossary-group"><h3>4. Hệ thống sửa ước lượng bằng gì?</h3><dl>
+          <dt id="tu-deskew">Deskew</dt><dd>Đưa các điểm đo ở các thời điểm khác nhau trong một scan về cùng thời điểm tham chiếu, dựa trên ước lượng chuyển động. Chỉ có ý nghĩa nếu scan thật sự được lấy tuần tự và có thông tin thời gian tương ứng.</dd>
+          <dt id="tu-matching">Scan matching</dt><dd>Thử pose của scan mới với bản đồ đã có, tìm các điểm/cấu trúc tương ứng, rồi điều chỉnh pose để chúng khớp hơn. Đầu ra là một pose đã được hình học LiDAR hiệu chỉnh.</dd>
+          <dt id="tu-bias">Bias và tích phân trước IMU</dt><dd><em>Bias</em> là sai lệch có hệ thống của cảm biến; tích lũy lâu sẽ gây trôi. <em>Tích phân trước</em> gom nhiều mẫu IMU giữa hai thời điểm thành một ràng buộc chuyển động để tối ưu hiệu quả hơn.</dd>
+          <dt id="tu-factor">Ràng buộc, sai lệch và đồ thị factor</dt><dd>Pose và bias là các giá trị cần tìm. Mỗi phép đo tạo một <em>ràng buộc</em>; <em>sai lệch</em> là độ không khớp giữa dự đoán và phép đo. Đồ thị factor tổ chức các ràng buộc để tìm trạng thái nhất quán, có xét độ tin cậy của từng loại đo.</dd>
+          <dt id="tu-loop">Đóng vòng</dt><dd>Nhận ra nơi đã đi qua, kiểm tra khớp hình học, rồi thêm ràng buộc giữa hai thời điểm xa nhau để sửa quỹ đạo đã trôi.</dd>
+        </dl></div>
+      </div>
+      <h3>Năm cặp từ dễ nhầm</h3>
+      <div class="table-wrap"><table><thead><tr><th>Hai từ</th><th>Phân biệt bằng một câu</th></tr></thead><tbody>
+        <tr><td>Scan / keyframe</td><td>Scan là dữ liệu vừa đo; keyframe là scan được chọn để giữ lại sau khi ước lượng pose.</td></tr>
+        <tr><td>Pose / odometry</td><td>Pose nói robot ở đâu và hướng nào; odometry nói nó đã dịch chuyển thế nào giữa các pose.</td></tr>
+        <tr><td>Bản đồ cục bộ / toàn cục</td><td>Cục bộ dùng những keyframe gần để khớp scan; toàn cục thể hiện cả hành trình và có thể đổi sau đóng vòng.</td></tr>
+        <tr><td>Dự đoán / hiệu chỉnh</td><td>IMU giúp dự đoán chuyển động trước; LiDAR dùng hình học để hiệu chỉnh dự đoán ấy.</td></tr>
+        <tr><td><code>header.stamp</code> / thời gian từng điểm</td><td>Một giá trị cho thông điệp khác với nhiều thời điểm đo của các điểm trong một scan LiDAR quay.</td></tr>
+      </tbody></table></div>
+      <div class="check"><strong>Tự kiểm tra</strong>Robot vừa thu một scan và đang khớp nó với bản đồ. Scan đó đã chắc chắn trở thành keyframe chưa? IMU đã đo trực tiếp pose của robot chưa?<details><summary>Xem đáp án</summary><p>Chưa. Sau bước khớp, hệ thống mới quyết định có giữ scan làm keyframe không. IMU đo gia tốc và tốc độ quay; pose là kết quả ước lượng.</p></details></div>
+      <p class="source"><strong>Đọc gốc:</strong> <a href="https://arxiv.org/html/2007.00258">Bài báo LIO-SAM</a>, phần III-A đến III-E; <a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/README.md">README source gốc</a>, “System architecture”, “Prepare lidar data” và “Prepare IMU data”. Các ví dụ và cách chia nhóm thuật ngữ ở Bài 0 là phần diễn giải để học.</p>
+    </article>
+
     <article class="lesson" id="bai-1">
       <div class="lesson-number">Bài 1 · Nền móng</div><h2>SLAM giải quyết việc gì?</h2>
       <p class="goal"><strong>Sau bài này:</strong> phân biệt quỹ đạo, bản đồ và hai câu hỏi robot phải giải cùng lúc.</p>
+      <p class="terms-in"><strong>Từ cần biết:</strong> <a href="#tu-pose">pose</a> · <a href="#tu-odom">odometry, quỹ đạo</a> · <a href="#tu-loop">đóng vòng</a></p>
       <p>Một robot đi trong tòa nhà chưa có bản đồ. Nó phải đoán <strong>mình đang ở đâu</strong> để đặt các phép đo mới vào đúng chỗ, nhưng lại cần <strong>bản đồ</strong> để biết mình đang ở đâu. SLAM là cách liên tục cập nhật cả hai ước lượng này.</p>
       <div class="grid"><div class="card"><h3>Quỹ đạo</h3><p>Chuỗi vị trí và hướng của robot theo thời gian. Mỗi thời điểm có một <span class="term">pose</span>.</p></div><div class="card"><h3>Bản đồ</h3><p>Các quan sát về môi trường được đặt vào cùng một hệ tọa độ. Với LIO-SAM, thường nhìn thấy dưới dạng đám mây điểm 3D.</p></div></div>
       <p><span class="term">Odometry</span> là ước lượng robot đã di chuyển bao nhiêu từ lúc trước tới lúc sau. Vì sai số nhỏ cộng dồn, quỹ đạo thường <span class="term">trôi</span>. SLAM thêm các ràng buộc như quay lại nơi cũ hoặc GPS để kéo quỹ đạo về nhất quán hơn.</p>
@@ -108,6 +163,7 @@
     <article class="lesson" id="bai-2">
       <div class="lesson-number">Bài 2 · Cảm biến</div><h2>LiDAR và IMU nhìn thấy gì?</h2>
       <p class="goal"><strong>Sau bài này:</strong> biết mỗi cảm biến cung cấp thông tin gì và vì sao cần kết hợp.</p>
+      <p class="terms-in"><strong>Từ cần biết:</strong> <a href="#tu-diem">điểm LiDAR</a> · <a href="#tu-scan">scan, point cloud</a> · <a href="#tu-imu">IMU</a> · <a href="#tu-bias">bias</a></p>
       <p><span class="term">LiDAR</span> đo khoảng cách theo nhiều hướng. Sau khi đổi thành tọa độ, một lần quét cho đám mây điểm: những điểm trên tường, sàn, cột, cây… Nó quan sát <em>hình học của thế giới</em>, nhưng một scan riêng lẻ không tự ghi “robot đang ở tọa độ (x, y, z) nào”.</p>
       <p><span class="term">IMU</span> đo tốc độ quay và gia tốc. Nó cho biết robot <em>đang chuyển động như thế nào</em> rất thường xuyên, nhưng tích lũy lâu sẽ trôi vì nhiễu và sai lệch cảm biến (<span class="term">bias</span>).</p>
       <p>Ý tưởng LIO-SAM: IMU giúp dự đoán chuyển động giữa các scan và sửa méo scan; LiDAR quan sát hình học để hiệu chỉnh dự đoán. Không cảm biến nào tự giải quyết trọn bài toán.</p>
@@ -119,6 +175,7 @@
     <article class="lesson" id="bai-3">
       <div class="lesson-number">Bài 3 · Hình học</div><h2>Pose và hệ tọa độ</h2>
       <p class="goal"><strong>Sau bài này:</strong> hiểu một pose 3D gồm gì và vì sao phải biết LiDAR nằm ở đâu so với IMU.</p>
+      <p class="terms-in"><strong>Từ cần biết:</strong> <a href="#tu-frame">hệ tọa độ</a> · <a href="#tu-pose">pose</a> · <a href="#tu-transform">phép biến đổi, ngoại chuẩn</a></p>
       <p>Một điểm đo có thể được mô tả trong hệ tọa độ của LiDAR, của thân robot hoặc của bản đồ. Cùng một cái cột sẽ có các con số khác nhau trong mỗi hệ. <span class="term">Pose 3D</span> gồm ba tọa độ vị trí <code>x, y, z</code> và ba thành phần định hướng; thường diễn đạt trực giác là roll, pitch, yaw. Tổng cộng sáu bậc tự do.</p>
       <p>Để đặt điểm LiDAR lên bản đồ, hệ thống cần biết <strong>LiDAR gắn lệch bao nhiêu so với IMU/thân robot</strong> (<span class="term">ngoại chuẩn</span>, hay extrinsic) và robot đang ở pose nào trong bản đồ. Sai dấu hoặc đảo chiều phép biến đổi làm bản đồ méo dù thuật toán vẫn chạy.</p>
       <div class="equation" aria-label="Đổi tọa độ điểm">điểm trong bản đồ = pose robot × vị trí gắn LiDAR × điểm đo trong LiDAR</div>
@@ -131,6 +188,7 @@
     <article class="lesson" id="bai-4">
       <div class="lesson-number">Bài 4 · Thời gian</div><h2>Vì sao phải khử méo một scan?</h2>
       <p class="goal"><strong>Sau bài này:</strong> giải thích được deskew và ý nghĩa của thời gian từng điểm.</p>
+      <p class="terms-in"><strong>Từ cần biết:</strong> <a href="#tu-scan">scan</a> · <a href="#tu-time-ring">thời gian từng điểm, ring</a> · <a href="#tu-deskew">deskew</a> · <a href="#tu-imu">IMU</a></p>
       <p>Một scan LiDAR quay không được chụp “trong một khoảnh khắc”. Điểm đầu và điểm cuối được đo ở các thời điểm khác nhau. Nếu robot quay hoặc chạy trong lúc quét, các điểm thuộc <strong>những pose khác nhau</strong>. Coi tất cả như được đo ở một pose sẽ làm tường cong, cột bị nhân đôi.</p>
       <p><span class="term">Deskew</span> (khử méo chuyển động) ước lượng chuyển động trong suốt scan, rồi đưa các điểm về cùng một thời điểm tham chiếu. Trong source LIO-SAM gốc, tốc độ quay từ các mẫu IMU được tích lũy và nội suy tới thời gian của từng điểm để sửa méo do quay. Hàm <code>findPosition()</code> mặc định trả về 0: đoạn dùng odometry để sửa méo do tịnh tiến đang được chú thích, dù odometry vẫn có thể cung cấp pose khởi tạo cho bước sau. Bản mã gốc dùng thời gian tương đối <code>time</code> của từng điểm và <code>ring</code> để sắp điểm theo kênh quét; thiếu chúng thì không thể giả định khử méo chính xác như thiết kế.</p>
       <div class="example"><strong>Ví dụ:</strong> chụp ảnh panorama khi bạn xoay người. Ghép các lát ảnh mà quên mình đã xoay sẽ khiến mép cửa không thẳng. Deskew là đặt mỗi lát về đúng hướng trước khi ghép.</div>
@@ -142,6 +200,7 @@
     <article class="lesson" id="bai-5">
       <div class="lesson-number">Bài 5 · Chọn thông tin</div><h2>Từ đám điểm thô đến đặc trưng cạnh và mặt</h2>
       <p class="goal"><strong>Sau bài này:</strong> biết LIO-SAM chọn điểm gì để khớp scan và vì sao.</p>
+      <p class="terms-in"><strong>Từ cần biết:</strong> <a href="#tu-range-image">range image</a> · <a href="#tu-dac-trung">đặc trưng cạnh, mặt</a> · <a href="#tu-voxel">voxel</a></p>
       <p>Một scan có rất nhiều điểm. LIO-SAM gốc không dùng tất cả điểm theo cùng một cách: nó sắp điểm thành cấu trúc gần giống ảnh khoảng cách, tính độ thay đổi khoảng cách giữa mỗi điểm và các điểm lân cận, rồi chọn hai nhóm:</p>
       <div class="grid"><div class="card"><h3>Cạnh (corner/edge)</h3><p>Vùng khoảng cách đổi mạnh, chẳng hạn mép cột hoặc góc bàn. Những điểm này giúp ràng buộc với <strong>đường</strong> trong bản đồ.</p></div><div class="card"><h3>Mặt (surface/plane)</h3><p>Vùng lân cận tương đối phẳng, chẳng hạn tường hoặc sàn. Những điểm này giúp ràng buộc với <strong>mặt phẳng</strong> trong bản đồ.</p></div></div>
       <p>Source còn loại bớt điểm bị che khuất hoặc có quan hệ láng giềng không ổn định, và lấy mẫu mặt phẳng bằng voxel để giảm số điểm cần xử lý. “Đặc trưng” ở đây là cách chọn điểm dựa trên hình học cục bộ, không phải nhận dạng vật thể bằng AI.</p>
@@ -153,6 +212,7 @@
     <article class="lesson" id="bai-6">
       <div class="lesson-number">Bài 6 · Ước lượng pose</div><h2>Scan matching với bản đồ cục bộ</h2>
       <p class="goal"><strong>Sau bài này:</strong> kể được scan matching làm gì và vì sao LIO-SAM dùng keyframe gần đây.</p>
+      <p class="terms-in"><strong>Từ cần biết:</strong> <a href="#tu-matching">scan matching</a> · <a href="#tu-keyframe">keyframe, bản đồ cục bộ</a> · <a href="#tu-factor">ràng buộc, sai lệch</a></p>
       <p><span class="term">Scan matching</span> là tìm pose khiến các đặc trưng của scan mới khớp với hình học đã biết. LIO-SAM dùng dự đoán từ IMU làm điểm xuất phát. Nó ghép các <span class="term">keyframe</span> gần đây thành bản đồ cục bộ, tách nhóm cạnh và mặt, rồi tìm các tương ứng:</p>
       <ol class="steps"><li>Đặt scan mới ở pose dự đoán.</li><li>Tìm cạnh trong scan gần đường cạnh của bản đồ, và điểm mặt gần mặt phẳng của bản đồ.</li><li>Đo sai lệch điểm–đường và điểm–mặt.</li><li>Điều chỉnh pose để sai lệch giảm; lặp cho đến khi đủ ổn định.</li></ol>
       <p>Bản đồ cục bộ được tạo từ các keyframe gần robot, thay vì đem mỗi scan mới so với toàn bộ bản đồ toàn cục. Bài báo gọi các keyframe này là <em>sub-keyframes</em>; chúng <strong>không phải</strong> submap xác suất kiểu Cartographer. Chỉ một số scan được giữ làm keyframe để hạn chế chi phí và kích thước đồ thị.</p>
@@ -165,6 +225,7 @@
     <article class="lesson" id="bai-7">
       <div class="lesson-number">Bài 7 · IMU</div><h2>Tích phân trước IMU và bias</h2>
       <p class="goal"><strong>Sau bài này:</strong> giải thích được vì sao phải gom nhiều mẫu IMU và vì sao cần ước lượng bias.</p>
+      <p class="terms-in"><strong>Từ cần biết:</strong> <a href="#tu-imu">IMU</a> · <a href="#tu-bias">bias, tích phân trước</a> · <a href="#tu-factor">ràng buộc</a></p>
       <p>Trong thời gian giữa hai scan LiDAR, IMU có thể gửi hàng chục mẫu. Nếu tính lại toàn bộ các mẫu mỗi lần pose được sửa, chi phí rất lớn. <span class="term">Tích phân trước</span> (preintegration) gom chuyển động tương đối từ nhiều mẫu IMU thành một ràng buộc giữa hai trạng thái. Khi pose được hiệu chỉnh, hệ thống dùng ràng buộc ấy để cập nhật nhanh hơn.</p>
       <p><span class="term">Bias</span> là độ lệch có hệ thống của cảm biến. Ví dụ robot đứng yên mà cảm biến quay báo một tốc độ rất nhỏ khác 0. Cứ cộng dồn số đó, hướng ước lượng sẽ trôi. LIO-SAM ước lượng bias cùng với pose và vận tốc trong đồ thị IMU, rồi dùng bias mới cho dự đoán tiếp theo.</p>
       <div class="example"><strong>Ví dụ:</strong> một chiếc đồng hồ luôn chạy nhanh 1 giây mỗi phút. Kiểm tra một phút có vẻ không sao, nhưng sau một giờ sẽ lệch một phút. Bias IMU cũng gây sai số cộng dồn như vậy.</div>
@@ -176,6 +237,7 @@
     <article class="lesson" id="bai-8">
       <div class="lesson-number">Bài 8 · Ghép ràng buộc</div><h2>Vì sao trong source có hai đồ thị tối ưu?</h2>
       <p class="goal"><strong>Sau bài này:</strong> hình dung được node, factor và hai nhịp ước lượng trong bản mã gốc.</p>
+      <p class="terms-in"><strong>Từ cần biết:</strong> <a href="#tu-factor">đồ thị factor</a> · <a href="#tu-pose">pose</a> · <a href="#tu-odom">odometry</a> · <a href="#tu-loop">đóng vòng</a></p>
       <p><span class="term">Đồ thị factor</span> có các <strong>nút</strong> là những trạng thái cần tìm (ví dụ pose ở một keyframe), và các <strong>cạnh ràng buộc</strong> là phép đo nói hai trạng thái nên liên quan thế nào. Tối ưu là tìm tập trạng thái khớp các phép đo tốt nhất theo độ tin cậy của chúng. Không phải mọi phép đo đều chính xác như nhau.</p>
       <div class="diagram" role="img" aria-label="Hai đồ thị trong mã LIO-SAM: đồ thị IMU ngắn hạn và đồ thị pose toàn cục">
         <svg viewBox="0 0 800 190" xmlns="http://www.w3.org/2000/svg"><defs><marker id="a2" markerWidth="8" markerHeight="8" refX="7" refY="4" orient="auto"><path d="M0 0 L8 4 L0 8 Z" fill="#377e8f"/></marker></defs>
@@ -197,6 +259,7 @@
     <article class="lesson" id="bai-9">
       <div class="lesson-number">Bài 9 · Sửa trôi</div><h2>Đóng vòng, GPS và bản đồ cuối cùng</h2>
       <p class="goal"><strong>Sau bài này:</strong> phân biệt ước lượng cục bộ với hiệu chỉnh quỹ đạo lâu dài.</p>
+      <p class="terms-in"><strong>Từ cần biết:</strong> <a href="#tu-loop">đóng vòng</a> · <a href="#tu-keyframe">keyframe, bản đồ cục bộ</a> · <a href="#tu-matching">scan matching</a></p>
       <p>Khớp scan với bản đồ cục bộ giúp robot di chuyển liên tục, nhưng sai số có thể tích lũy. <span class="term">Đóng vòng</span> là nhận ra robot đến gần một nơi đã đi qua, kiểm tra hai đám mây có khớp thật không, rồi thêm ràng buộc nối hai thời điểm xa nhau vào đồ thị. <span class="term">GPS</span>, nếu có, thêm thông tin vị trí từ bên ngoài. Sau tối ưu, pose các keyframe cũ có thể thay đổi.</p>
       <p>Trong source gốc, đóng vòng là ví dụ dựa trên tìm keyframe cũ gần về khoảng cách rồi dùng ICP kiểm tra. README gọi đây là <em>proof of concept</em> và nói ICP có thể chậm. Vì vậy “LIO-SAM có đóng vòng” không có nghĩa là luôn nhận ra mọi nơi đã đi qua.</p>
       <p><strong>Map là gì?</strong> LIO-SAM giữ các keyframe và đám mây đặc trưng; bản đồ hiển thị được ghép từ các đám mây theo pose. Một số màn hình RViz chỉ xếp chồng cloud đã công bố và sẽ không tự dịch các cloud cũ sau khi pose được sửa. README phân biệt <code>Map (cloud)</code> với <code>Map (global)</code>.</p>
@@ -208,6 +271,7 @@
     <article class="lesson" id="bai-10">
       <div class="lesson-number">Bài 10 · Tự học từ mã gốc</div><h2>Đọc source theo một scan, chưa cần hiểu mọi dòng</h2>
       <p class="goal"><strong>Sau bài này:</strong> biết mở đúng file và đặt câu hỏi kiểm chứng được khi đọc source.</p>
+      <p class="terms-in"><strong>Từ cần biết:</strong> <a href="#tu-time-ring">time, ring</a> · <a href="#tu-transform">ngoại chuẩn</a> · <a href="#tu-keyframe">keyframe</a> · <a href="#tu-matching">scan matching</a></p>
       <p>Đọc theo <strong>dữ liệu đi đâu</strong>, không đọc hàng nghìn dòng từ trên xuống. Với một scan mới, lần lượt tìm:</p>
       <div class="table-wrap"><table><thead><tr><th>Câu hỏi</th><th>Vị trí trong source</th><th>Điều cần thấy</th></tr></thead><tbody>
         <tr><td>Scan và IMU vào đâu?</td><td><a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/src/imageProjection.cpp#L80">imageProjection.cpp</a></td><td>Subscriber, hàng đợi, timestamp, deskew.</td></tr>
