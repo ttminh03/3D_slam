@@ -1,0 +1,395 @@
+<!doctype html>
+<html lang="vi">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>Phụ lục công thức LIO-SAM — đề cương nghiên cứu sâu</title>
+  <style>
+    :root { --ink:#19304a; --muted:#52667b; --line:#d7e1e9; --paper:#fff; --bg:#f4f7f8; --teal:#087f77; --blue:#075c7b; }
+    * { box-sizing:border-box; }
+    html { scroll-behavior:smooth; }
+    body { margin:0; background:var(--bg); color:var(--ink); font:16px/1.7 system-ui,-apple-system,"Segoe UI",sans-serif; }
+    a { color:var(--blue); text-underline-offset:3px; }
+    a:hover { color:#003f58; }
+    .hero { background:linear-gradient(120deg,#12344c,#126e78); color:#fff; padding:48px 24px; }
+    .hero-inner { max-width:1120px; margin:auto; }
+    .eyebrow { font-size:.78rem; text-transform:uppercase; letter-spacing:.12em; font-weight:750; opacity:.86; }
+    h1 { font-size:clamp(2rem,4vw,3.35rem); line-height:1.15; letter-spacing:-.03em; max-width:800px; margin:.4em 0; }
+    .hero p { color:#e4f1f2; margin:0; max-width:740px; }
+    .hero a { color:#fff; }
+    .layout { max-width:1120px; margin:30px auto 80px; padding:0 20px; display:grid; grid-template-columns:230px minmax(0,1fr); gap:25px; align-items:start; }
+    .toc { position:sticky; top:20px; background:#e7f0f2; border:1px solid var(--line); border-radius:14px; padding:18px; max-height:calc(100vh - 40px); overflow:auto; }
+    .toc strong { display:block; margin-bottom:9px; }
+    .toc ol { padding-left:1.4em; margin:0; font-size:.88rem; line-height:1.4; }
+    .toc li { margin:9px 0; }
+    main { background:var(--paper); border:1px solid var(--line); border-radius:16px; box-shadow:0 5px 20px #173e4a0a; padding:clamp(22px,4vw,42px); min-width:0; }
+    main > :first-child { margin-top:0; }
+    h2,h3,h4 { line-height:1.3; scroll-margin-top:22px; }
+    h2 { font-size:1.7rem; letter-spacing:-.02em; border-top:2px solid #e7f0f2; padding-top:35px; margin:48px 0 16px; }
+    h3 { font-size:1.28rem; margin:32px 0 12px; color:#0d5c64; }
+    h4 { font-size:1.08rem; margin:26px 0 8px; }
+    p { margin:0 0 16px; }
+    blockquote { margin:0 0 27px; padding:16px 20px; background:#eef8f5; border-left:4px solid var(--teal); border-radius:0 8px 8px 0; }
+    blockquote p { margin:0; }
+    ul,ol { padding-left:1.5em; margin:12px 0 20px; }
+    li { margin:6px 0; }
+    code { background:#edf2f4; border-radius:4px; padding:2px 4px; font-size:.87em; overflow-wrap:anywhere; }
+    pre.code-block { overflow:auto; background:#112d3f; color:#e8f3f5; border-radius:10px; padding:20px; margin:20px 0; line-height:1.45; }
+    pre.code-block code { background:none; padding:0; color:inherit; font-size:.88rem; overflow-wrap:normal; }
+    .math-display { overflow-x:auto; overflow-y:hidden; padding:15px 8px; margin:20px 0; background:#f5fafb; border-radius:9px; text-align:center; }
+    .math-inline { white-space:normal; }
+    .table-wrap { max-width:100%; overflow-x:auto; margin:22px 0; }
+    table { border-collapse:collapse; width:100%; font-size:.92rem; min-width:660px; }
+    th,td { border:1px solid var(--line); padding:10px 12px; text-align:left; vertical-align:top; }
+    th { background:#eaf4f5; }
+    tr:nth-child(even) td { background:#f8fafb; }
+    footer { text-align:center; color:var(--muted); font-size:.85rem; padding:0 20px 36px; }
+    @media (max-width:800px) { .layout { display:block; } .toc { position:static; max-height:none; margin-bottom:20px; } .toc ol { columns:2; } }
+    @media (max-width:520px) { .toc ol { columns:1; } body { font-size:15px; } }
+    @media print { body { background:white; } .hero { background:white; color:#111; padding:0 0 18px; } .hero p,.hero a { color:#111; } .layout { display:block; margin:0; padding:0; } .toc { display:none; } main { border:0; box-shadow:none; padding:0; } h2 { break-after:avoid; } .math-display,.table-wrap { break-inside:avoid; } }
+  </style>
+  <script>
+    window.MathJax = { tex: { inlineMath: [['\\(', '\\)']], displayMath: [['\\[', '\\]']] }, options: { skipHtmlTags: ['script','noscript','style','textarea','pre','code'] } };
+  </script>
+  <script defer src="https://cdn.jsdelivr.net/npm/mathjax@3.2.2/es5/tex-chtml.js"></script>
+</head>
+<body>
+  <header class="hero"><div class="hero-inner">
+    <div class="eyebrow">Đề cương nghiên cứu sâu · LIO-SAM</div>
+    <h1>Bước 2 — đề cương nghiên cứu sâu LIO-SAM để triển khai lại</h1>
+    <p>Bản tra cứu công thức và kiểm chứng chi tiết. <a href="lio-sam-nghien-cuu-sau.html">Đọc giáo án theo từng bài</a> hoặc <a href="lio-sam-nhap-mon.html">quay lại giáo trình nhập môn</a>.</p>
+  </div></header>
+  <div class="layout">
+    <nav class="toc" aria-label="Mục lục"><strong>Mục lục</strong><ol><li><a href="#1-dich-va-cach-dung-de-cuong">1. Đích và cách dùng đề cương</a></li><li><a href="#2-chang-0-y-tuong-thiet-ke-truoc-khi-doc-cong-thuc">2. Chặng 0 — ý tưởng thiết kế trước khi đọc công thức</a></li><li><a href="#3-chang-a-nen-toan-hoc-va-du-lieu-hoc-truoc-khi-code-pipeline">3. Chặng A — nền toán học và dữ liệu (học trước khi code pipeline)</a></li><li><a href="#4-chang-b-tu-phep-do-den-dac-trung-hinh-hoc">4. Chặng B — từ phép đo đến đặc trưng hình học</a></li><li><a href="#5-chang-c-lidar-odometry-va-ban-do-cuc-bo">5. Chặng C — LiDAR odometry và bản đồ cục bộ</a></li><li><a href="#6-chang-d-ket-hop-chat-imu-va-do-thi">6. Chặng D — kết hợp chặt IMU và đồ thị</a></li><li><a href="#7-chang-e-rang-buoc-dai-han-san-pham-ban-do-va-danh-gia">7. Chặng E — ràng buộc dài hạn, sản phẩm bản đồ và đánh giá</a></li><li><a href="#8-cac-moc-hoan-thanh-va-quyet-dinh-con-mo">8. Các mốc hoàn thành và quyết định còn mở</a></li></ol></nav>
+    <main id="noi-dung"><blockquote><p><strong>Trạng thái:</strong> dàn ý học và triển khai, chưa phải bản thiết kế đã chốt. Đọc sau <a href="lio-sam-nhap-mon.html">giáo trình nhập môn</a>. Mỗi chặng dưới đây phải được mở rộng thành bài học kỹ thuật, bài thực hành và một thay đổi mã có thể kiểm chứng độc lập. Thứ tự ưu tiên là <strong>phụ thuộc kiến thức và dữ liệu</strong>, không phải thứ tự file trong repository.</p></blockquote>
+<h2 id="1-dich-va-cach-dung-de-cuong">1. Đích và cách dùng đề cương</h2>
+<p>Đích học: tự suy ra công thức, giải thích từng dữ liệu đi qua hệ thống, chỉ ra giả định và trường hợp hỏng. Đích kỹ thuật: triển khai được một đường LiDAR–IMU 3D từ đầu vào hợp lệ đến quỹ đạo, keyframe và bản đồ, rồi thêm hiệu chỉnh dài hạn. Độ ổn định, độ chính xác và chi phí máy được đo riêng; không kết luận một thiết kế tốt chỉ vì RViz cho bản đồ trông hợp lý.</p>
+<p>Mỗi bài triển khai về sau cần giữ cùng một cấu trúc:</p>
+<ol><li><strong>Câu hỏi cần trả lời:</strong> vấn đề nào buộc module tồn tại; đầu vào/đầu ra và đơn vị.</li><li><strong>Kiến thức nền:</strong> ký hiệu, hình học, xác suất hoặc cấu trúc dữ liệu cần học trước.</li><li><strong>Từ bài báo đến source:</strong> công thức và ý tưởng của bài báo; hàm/cấu hình thực sự làm gì trong bản mã gốc. Ghi rõ khi hai mô tả khác nhau.</li><li><strong>Tự tính một ví dụ nhỏ:</strong> số liệu đủ đơn giản để kiểm tra chiều biến đổi, thời gian, dấu và đơn vị.</li><li><strong>Hợp đồng module:</strong> kiểu dữ liệu, frame, timestamp, điều kiện đầu vào, đầu ra khi thiếu dữ liệu, phần nào được phép cấu hình.</li><li><strong>Bài code nhỏ và kiểm chứng:</strong> kiểm tra bằng dữ liệu tổng hợp trước; sau đó so với source gốc trên cùng dữ liệu, không chỉ bằng hình ảnh.</li><li><strong>Giới hạn:</strong> trường hợp suy biến, độ nhạy tham số, bộ nhớ và thời gian chạy; câu hỏi còn mở phải được ghi lại.</li></ol>
+<p>Một chặng chỉ được coi là <strong>đã hiểu để code</strong> khi giải thích được vì sao đầu ra đúng, có ví dụ phản chứng, và chỉ được vị trí tương ứng trong <a href="https://arxiv.org/html/2007.00258">bài báo gốc</a> cùng <a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/README.md">source gốc tại commit 0be1fbe</a>. “Code chạy” và “hiểu thuật toán” là hai điều kiện cần kiểm tra riêng.</p>
+<h3 id="luong-phu-thuoc">Luồng phụ thuộc</h3>
+<pre class="code-block"><code class="language-text">Ký hiệu + hình học + thời gian
+          ↓
+Hợp đồng LiDAR/IMU + ngoại chuẩn
+          ↓
+IMU trong một scan → deskew → ảnh khoảng cách → điểm cạnh/mặt
+                                                ↓
+                                  keyframe cũ → bản đồ cục bộ
+                                                ↓
+                             tương ứng hình học → tối ưu pose LiDAR
+                                                ↓
+                     ràng buộc odometry giữa các keyframe
+
+Song song sau khi đã hiểu IMU cơ bản:
+IMU tích phân trước + bias + pose LiDAR hiệu chỉnh → đồ thị IMU nhịp nhanh
+                              ↕
+               đồ thị pose keyframe dài hạn → loop/GPS → map toàn cục</code></pre>
+<p><strong>Mốc tích hợp quan trọng:</strong> có thể dựng đường LiDAR scan-to-map với pose khởi tạo đã biết trước khi hoàn thành đồ thị IMU. Đây là bài tập cô lập module, <strong>chưa phải LIO-SAM đầy đủ</strong>. Đường LIO-SAM hoàn chỉnh chỉ có khi pose LiDAR hiệu chỉnh quay lại cập nhật trạng thái/bias IMU. <a href="https://arxiv.org/html/2007.00258">Bài báo, III-A đến III-C</a>; <a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/README.md">README, System architecture</a>.</p>
+<h3 id="quy-uoc-ky-hieu-cho-cac-cong-thuc-trong-dan-y">Quy ước ký hiệu cho các công thức trong dàn ý</h3>
+<ul><li><span class="math-inline">\(W\)</span>: frame thế giới hoặc bản đồ.</li><li><span class="math-inline">\(B\)</span>: frame thân robot; bài báo giả định frame IMU trùng với <span class="math-inline">\(B\)</span>.</li><li><span class="math-inline">\(L\)</span>: frame LiDAR.</li><li><span class="math-inline">\(i,j\)</span>: chỉ số thời điểm hoặc trạng thái/keyframe, tùy bài. <span class="math-inline">\(k\)</span>: chỉ số điểm LiDAR hoặc mẫu IMU; từng công thức sẽ nói rõ.</li><li><span class="math-inline">\(p_A\)</span>: tọa độ của điểm <span class="math-inline">\(p\)</span> trong frame <span class="math-inline">\(A\)</span>. Khi nhân với ma trận <span class="math-inline">\(4\times4\)</span>, viết điểm ở dạng thuần nhất <span class="math-inline">\([x,y,z,1]^\top\)</span>.</li><li><span class="math-inline">\(T_{AB}\)</span>: phép biến đổi tọa độ <strong>từ frame B sang frame A</strong>; <span class="math-inline">\(p_A=T_{AB}p_B\)</span>. Đảo chiều bằng <span class="math-inline">\(T_{BA}=T_{AB}^{-1}\)</span>.</li><li><span class="math-inline">\(T_{WB}\in SE(3)\)</span>: pose của body trong world, gồm phép quay <span class="math-inline">\(R_{WB}\in SO(3)\)</span> và tịnh tiến <span class="math-inline">\(p_{WB}\)</span>. Trong ma trận thuần nhất: <span class="math-inline">\(T_{WB}=\begin{bmatrix}R_{WB}&amp;p_{WB}\\0&amp;1\end{bmatrix}\)</span>.</li><li><span class="math-inline">\(v_W\)</span>: vận tốc của body biểu diễn trong frame <span class="math-inline">\(W\)</span>.</li><li><span class="math-inline">\(b_g\)</span>, <span class="math-inline">\(b_a\)</span>: bias của gyroscope và accelerometer.</li><li><span class="math-inline">\(\hat\omega\)</span>, <span class="math-inline">\(\hat a\)</span>: số đo tốc độ góc và gia tốc từ IMU. Dấu mũ trên pose, ví dụ <span class="math-inline">\(\hat T\)</span>, chỉ <strong>ước lượng</strong>; ý nghĩa dấu mũ phải đọc theo biến của từng công thức.</li><li><span class="math-inline">\(t_0\)</span>: thời điểm tham chiếu của scan. <span class="math-inline">\(\tau_k\)</span>: thời gian tương đối khi đo điểm <span class="math-inline">\(k\)</span>; <span class="math-inline">\(t_k=t_0+\tau_k\)</span>.</li><li><span class="math-inline">\(\operatorname{Exp}\)</span>, <span class="math-inline">\(\operatorname{Log}\)</span>: phép chuyển giữa lượng quay/pose và biểu diễn sai khác nhỏ của chúng trên <span class="math-inline">\(SO(3)\)</span> hoặc <span class="math-inline">\(SE(3)\)</span>.</li><li><span class="math-inline">\(r\)</span>: residual, tức sai lệch giữa phép đo và dự đoán theo quy ước dấu đã chọn.</li><li><span class="math-inline">\(\Sigma\)</span>: ma trận hiệp phương sai của residual; <span class="math-inline">\(\|r\|_\Sigma^2=r^\top\Sigma^{-1}r\)</span> là sai lệch có xét độ tin cậy.</li><li><strong>[Paper]</strong>: công thức trong bài báo hoặc phép viết lại tương đương.</li><li><strong>[Source]</strong>: phép tính của source gốc tại commit được dẫn.</li><li><strong>[Suy ra]</strong>: công thức học tập hoặc kiểm thử suy từ các định nghĩa; chưa khẳng định trùng cách source triển khai.</li></ul>
+<h2 id="2-chang-0-y-tuong-thiet-ke-truoc-khi-doc-cong-thuc">2. Chặng 0 — ý tưởng thiết kế trước khi đọc công thức</h2>
+<h3 id="0-1-vi-sao-can-mot-he-lidar-imu-nhu-lio-sam">0.1. Vì sao cần một hệ LiDAR–IMU như LIO-SAM?</h3>
+<ul><li><strong>Bài toán xuất phát:</strong> scan matching LiDAR đơn thuần có thể trôi hoặc thất bại khi robot quay nhanh, scan bị méo và hình học thiếu ràng buộc; IMU cho chuyển động ngắn hạn nhanh nhưng tự nó tích lũy sai số. Bản đồ lớn cũng làm tìm tương ứng đắt hơn. Đọc <a href="https://arxiv.org/html/2007.00258">bài báo, I–II</a> để biết tác giả đặt vấn đề và giới hạn của các hướng trước đó; ghi ý nào là lập luận của tác giả, ý nào đã được thí nghiệm xác nhận.</li><li><strong>Ý tưởng trung tâm cần tự kể lại:</strong> dùng chuyển động IMU cho deskew và pose khởi tạo; khớp đặc trưng LiDAR với map cục bộ để hiệu chỉnh pose; dùng pose LiDAR sửa state/bias IMU; chỉ lưu một số scan làm keyframe; thêm loop/GPS khi có bằng chứng phù hợp. Trình bày riêng “ước lượng nhanh hiện tại” và “sửa lại quỹ đạo cũ”.</li><li><strong>Bài tập trước khi học công thức:</strong> vẽ robot quay trong lúc quét một bức tường, đánh dấu sai số của (a) không deskew, (b) chỉ IMU, (c) chỉ scan matching trên tường phẳng, (d) có loop sai. Với mỗi sai số, chỉ ra khối nào có thể sửa và khối nào không thể.</li><li><strong>Đầu ra của chặng:</strong> một trang giải thích giả thuyết thiết kế và bốn phản ví dụ trên; bảng “đầu vào → thông tin quan sát được → thông tin còn không quan sát được”. Đây là chuẩn để không học công thức rời rạc.</li></ul>
+<h2 id="3-chang-a-nen-toan-hoc-va-du-lieu-hoc-truoc-khi-code-pipeline">3. Chặng A — nền toán học và dữ liệu (học trước khi code pipeline)</h2>
+<h3 id="a0-doc-kien-truc-va-dong-bang-moc-doi-chieu">A0. Đọc kiến trúc và đóng băng mốc đối chiếu</h3>
+<ul><li><strong>Hiểu:</strong> đường scan đi qua <code>imageProjection → featureExtraction → mapOptmization</code>; nhánh <code>imuPreintegration</code> chạy song song, nhận IMU và pose LiDAR hiệu chỉnh rồi trả dự đoán chuyển động. <code>cloud_info</code> nối các khối nào; những topic nào là cảm biến, trung gian, đầu ra. Phân biệt hình kiến trúc trong bài báo với hai đồ thị được README/source triển khai.</li><li><strong>Tạo:</strong> sơ đồ luồng dữ liệu một scan, bảng <code>topic → kiểu → frame → timestamp → bên tạo → bên dùng</code>, và danh sách điều kiện kích hoạt từng module.</li><li><strong>Kiểm chứng:</strong> truy được một trường trong <code>cloud_info</code> từ nơi sinh đến nơi dùng; ghi commit nguồn. Không suy từ tên topic rằng dữ liệu đã có đủ trường.</li><li><strong>Nguồn:</strong> <a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/README.md">README, System architecture</a>, <a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/msg/cloud_info.msg">cloud_info.msg</a>, <a href="https://arxiv.org/html/2007.00258">bài báo, III-A</a>.</li></ul>
+<h3 id="a1-hinh-hoc-3d-va-quy-uoc-ky-hieu">A1. Hình học 3D và quy ước ký hiệu</h3>
+<p><strong>Công thức phải tự suy ra [Paper (1) + Suy ra]:</strong></p>
+<div class="math-display">\[
+T_{AB}=\begin{bmatrix}R_{AB}&amp;t_{AB}\\0&amp;1\end{bmatrix},\qquad
+T_{AC}=T_{AB}T_{BC},\qquad
+T_{BA}=T_{AB}^{-1},\qquad
+p_W=T_{WB}T_{BL}p_L.
+\]</div>
+<p>Viết lại bốn phép trên cho một điểm tường và làm phép đổi ngược <span class="math-inline">\(p_L=T_{BL}^{-1}T_{WB}^{-1}p_W\)</span>. Ma trận <span class="math-inline">\(T_{BL}\)</span> là ngoại chuẩn <strong>LiDAR → body</strong> theo quy ước của tài liệu này; phải đối chiếu chiều thực của tham số source trước khi gán.</p>
+<ul><li><strong>Nền:</strong> vector, ma trận quay <code>SO(3)</code>, quaternion, biến đổi cứng <code>SE(3)</code>, phép hợp thành/nghịch đảo, điểm trong frame LiDAR/IMU/body/world, roll–pitch–yaw chỉ là một cách biểu diễn. Phân biệt <code>T_WB</code> với <code>T_BW</code> và phép biến đổi điểm với pose robot.</li><li><strong>Thuật toán cần nắm:</strong> <code>p_W = T_WB · T_BL · p_L</code> (tọa độ thuần nhất); pose tương đối giữa hai thời điểm; cập nhật quay bằng <code>exp</code> và sai lệch quay bằng <code>log</code>. Trước khi viết Jacobian, làm rõ thứ tự biến và quy ước perturbation trái/phải.</li><li><strong>Tạo:</strong> bảng tên frame và chiều từng transform, thư viện phép biến đổi nhỏ hoặc giao diện dùng thư viện đã chọn; ví dụ tính bằng tay cho robot quay 90° với LiDAR lệch tâm.</li><li><strong>Kiểm chứng:</strong> biến đổi đi rồi về cho cùng điểm; chuỗi transform đúng dù robot quay và cảm biến lệch trục; quaternion chuẩn hóa. Sai chiều frame phải làm bài kiểm tra thất bại.</li><li><strong>Nguồn:</strong> <a href="https://arxiv.org/html/2007.00258">bài báo, III-A, (1)</a>, <a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/README.md">README, Prepare IMU data</a>, <a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/config/params.yaml">params.yaml</a>.</li></ul>
+<h3 id="a2-toi-uu-va-xac-suat-du-dung-cho-slam">A2. Tối ưu và xác suất đủ dùng cho SLAM</h3>
+<p><strong>Câu hỏi cần trả lời:</strong> robot có nhiều thông tin chưa hoàn toàn khớp nhau. Ta tìm trạng thái nào giải thích các thông tin ấy tốt nhất, và xử lý thế nào khi một phép đo kém tin cậy? Đọc lần lượt A2.1 → A2.7; ở mỗi bước, hãy đọc <strong>công thức → từng thành phần → tác dụng → ví dụ</strong>.</p>
+<p>Trong các ví dụ 1D dưới đây, <span class="math-inline">\(x\)</span> chỉ là vị trí trên một trục để dễ tính tay. Trong LIO-SAM, trạng thái có thể gồm pose 3D, vận tốc và bias. Những con số minh họa không phải tham số của source gốc.</p>
+<h4 id="a2-1-sai-so-do-va-residual">A2.1. Sai số đo và residual</h4>
+<p><strong>Công thức:</strong></p>
+<div class="math-display">\[
+e=z-z_{\rm thật},
+\qquad
+r(x)=h(x)-z.
+\]</div>
+<ul><li><span class="math-inline">\(z\)</span>: số cảm biến báo, ví dụ khoảng cách 2,1 m.</li><li><span class="math-inline">\(z_{\rm thật}\)</span>: giá trị đo đúng trong thực tế. Khi robot chạy, thường không biết nó nên không tính được <span class="math-inline">\(e\)</span>.</li><li><span class="math-inline">\(x\)</span>: trạng thái robot <strong>đang thử</strong>, ví dụ một pose giả định.</li><li><span class="math-inline">\(h(x)\)</span>: số cảm biến <em>đáng lẽ</em> phải báo nếu robot thật sự ở trạng thái <span class="math-inline">\(x\)</span> và mô hình/map đúng.</li><li><span class="math-inline">\(r(x)\)</span>: <strong>residual</strong>, tức chênh lệch giữa dự đoán <span class="math-inline">\(h(x)\)</span> và số đo <span class="math-inline">\(z\)</span>. Ta tính được nó cho từng <span class="math-inline">\(x\)</span> đang thử. Quy ước ở đây là “dự đoán trừ đo”; đổi quy ước dấu phải đổi nhất quán ở Jacobian.</li></ul>
+<p><strong>Tác dụng:</strong> residual biến câu “pose này có khớp dữ liệu không?” thành một con số để so sánh và tối ưu. Sai số đo <span class="math-inline">\(e\)</span> nói về sự thật chưa biết; residual <span class="math-inline">\(r(x)\)</span> nói về mức khớp của một giả thuyết có thể kiểm tra.</p>
+<p><strong>Ví dụ:</strong> tường thật cách 2,0 m, LiDAR báo <span class="math-inline">\(z=2{,}1\)</span> m, vậy sai số đo là <span class="math-inline">\(e=0{,}1\)</span> m nếu ta có ground truth. Với một pose thử, mô hình dự đoán <span class="math-inline">\(h(x)=2{,}3\)</span> m thì <span class="math-inline">\(r(x)=0{,}2\)</span> m. Thử pose khác cho <span class="math-inline">\(h(x)=2{,}05\)</span> m thì <span class="math-inline">\(r(x)=-0{,}05\)</span> m; độ lệch nhỏ hơn. Residual bằng 0 vẫn chưa chứng minh pose đúng nếu map hoặc tương ứng hình học sai.</p>
+<p><strong>Trong LIO-SAM:</strong> scan matching có residual hình học giữa điểm LiDAR và đường/mặt của local map (mục C2). Khoảng cách điểm–mặt không âm là <strong>độ lớn</strong> của residual; khi cần đạo hàm, chiều pháp tuyến giúp định nghĩa residual có dấu.</p>
+<h4 id="a2-2-phuong-sai-hiep-phuong-sai-va-thong-tin">A2.2. Phương sai, hiệp phương sai và thông tin</h4>
+<p><strong>Công thức:</strong></p>
+<div class="math-display">\[
+\sigma^2=\mathbb E[(e-\mathbb E[e])^2],
+\qquad
+\Sigma=\mathbb E[(e-\mathbb E[e])(e-\mathbb E[e])^\top],
+\qquad
+w=\frac{1}{\sigma^2},\quad \Omega=\Sigma^{-1}.
+\]</div>
+<ul><li><span class="math-inline">\(\mathbb E[\cdot]\)</span>: giá trị trung bình kỳ vọng qua nhiều lần đo trong cùng điều kiện.</li><li><span class="math-inline">\(e\)</span>: sai số đo ngẫu nhiên. Công thức <span class="math-inline">\(\sigma^2\)</span> nói sai số <strong>phân tán quanh trung bình</strong> nhiều đến đâu; nó không cho biết một lần đo cụ thể sai bao nhiêu.</li><li><span class="math-inline">\(\sigma\)</span>: độ lệch chuẩn, cùng đơn vị với số đo; <span class="math-inline">\(\sigma^2\)</span> là <strong>phương sai</strong>, có đơn vị bình phương. Với khoảng cách, lần lượt là m và m².</li><li><span class="math-inline">\(\Sigma\)</span>: <strong>ma trận hiệp phương sai</strong> khi sai số có nhiều thành phần, ví dụ <span class="math-inline">\((x,y,z)\)</span>. Đường chéo là phương sai từng thành phần; phần tử ngoài đường chéo diễn tả hai thành phần sai lệch có liên hệ.</li><li><span class="math-inline">\(w\)</span> hoặc <span class="math-inline">\(\Omega\)</span>: <strong>trọng số/thông tin</strong> dùng trong tối ưu. Chúng là nghịch đảo của phương sai/hiệp phương sai trong mô hình Gaussian; phương sai nhỏ cho trọng số lớn. Phép đảo <span class="math-inline">\(\Sigma^{-1}\)</span> đòi hỏi một ma trận hiệp phương sai hợp lệ.</li></ul>
+<p><strong>Tác dụng:</strong> cho thuật toán biết residual nào nên có ảnh hưởng mạnh hơn. Hai residual cùng lớn 0,2 m nhưng xuất phát từ hai nguồn có độ nhiễu khác nhau không nên bị xử lý như nhau. Đặt covariance sai có thể khiến thuật toán quá tin dữ liệu xấu.</p>
+<p><strong>Ví dụ:</strong> phép đo A có <span class="math-inline">\(\sigma_A=0{,}1\)</span> m nên <span class="math-inline">\(\sigma_A^2=0{,}01\)</span> m² và <span class="math-inline">\(w_A=100\)</span> m⁻². Phép đo B có <span class="math-inline">\(\sigma_B=1\)</span> m nên <span class="math-inline">\(w_B=1\)</span> m⁻². Theo mô hình này, residual của A được phạt mạnh gấp 100 lần residual cùng độ lớn của B. Đây là <strong>độ tin cậy được gán từ mô hình nhiễu</strong>, không phải bằng chứng A luôn đúng; bias có thể làm A sai có hệ thống.</p>
+<h4 id="a2-3-binh-phuong-toi-thieu-co-trong-so">A2.3. Bình phương tối thiểu có trọng số</h4>
+<p><strong>Công thức 1D [Suy ra]:</strong></p>
+<div class="math-display">\[
+F(x)=\sum_{i=1}^{N}w_i\,r_i(x)^2
+    =\sum_{i=1}^{N}\frac{(x-z_i)^2}{\sigma_i^2},
+\qquad
+x^*=\arg\min_x F(x).
+\]</div>
+<ul><li><span class="math-inline">\(N\)</span>: số phép đo đang kết hợp.</li><li><span class="math-inline">\(r_i(x)=x-z_i\)</span>: residual của phép đo thứ <span class="math-inline">\(i\)</span> trong ví dụ các cảm biến cùng đo vị trí <span class="math-inline">\(x\)</span>.</li><li><span class="math-inline">\(w_i=1/\sigma_i^2\)</span>: trọng số của phép đo <span class="math-inline">\(i\)</span>.</li><li><span class="math-inline">\(F(x)\)</span>: tổng “mức không khớp” có xét độ tin cậy; nhỏ hơn nghĩa là các phép đo được giải thích tốt hơn <strong>theo mô hình đã chọn</strong>.</li><li><span class="math-inline">\(\arg\min_x\)</span>: tìm **giá trị <span class="math-inline">\(x\)</span>** khiến <span class="math-inline">\(F(x)\)</span> nhỏ nhất, không phải lấy giá trị nhỏ nhất của <span class="math-inline">\(F\)</span> làm pose.</li></ul>
+<p><strong>Tác dụng:</strong> biến nhiều phép đo mâu thuẫn thành một câu hỏi có thể giải: chọn <span class="math-inline">\(x\)</span> sao cho tổng sai lệch có trọng số nhỏ nhất. Bình phương làm residual dương/âm không triệt tiêu nhau và phạt mạnh sai lệch lớn.</p>
+<p><strong>Ví dụ tự tính:</strong> <span class="math-inline">\(z_1=2\)</span> m, <span class="math-inline">\(\sigma_1=0{,}1\)</span> m; <span class="math-inline">\(z_2=3\)</span> m, <span class="math-inline">\(\sigma_2=1\)</span> m. Khi đó <span class="math-inline">\(w_1=100\)</span>, <span class="math-inline">\(w_2=1\)</span> và</p>
+<div class="math-display">\[
+F(x)=100(x-2)^2+(x-3)^2,\qquad
+\frac{dF}{dx}=200(x-2)+2(x-3)=0,
+\]</div>
+<div class="math-display">\[
+x^*=\frac{100\cdot2+1\cdot3}{100+1}
+    =\frac{203}{101}\approx2{,}0099\ {\rm m}.
+\]</div>
+<p>Nghiệm gần 2 m vì phép đo đầu được gán độ bất định nhỏ hơn. Nếu đổi hai giá trị <span class="math-inline">\(\sigma\)</span>, nghiệm phải nghiêng về 3 m. Ví dụ này giả định hai phép đo độc lập, không có outlier và cùng đo đúng đại lượng <span class="math-inline">\(x\)</span>.</p>
+<h4 id="a2-4-prior-va-map-dua-thong-tin-co-truoc-vao-bai-toan">A2.4. Prior và MAP: đưa thông tin có trước vào bài toán</h4>
+<p><strong>Công thức Bayes và MAP [Paper III-A ở mức ý tưởng]:</strong></p>
+<div class="math-display">\[
+p(x\mid z)\propto p(z\mid x)\,p(x),
+\qquad
+x_{\rm MAP}=\arg\max_x p(x\mid z).
+\]</div>
+<ul><li><span class="math-inline">\(p(x)\)</span>: <strong>prior</strong>, tức mức tin vào trạng thái <span class="math-inline">\(x\)</span> <em>trước khi</em> nhận phép đo mới. Prior có thể đến từ trạng thái/dự đoán trước; nó cũng có sai số.</li><li><span class="math-inline">\(p(z\mid x)\)</span>: <strong>likelihood</strong>, tức phép đo <span class="math-inline">\(z\)</span> có hợp lý đến đâu nếu trạng thái đang thử là <span class="math-inline">\(x\)</span>.</li><li><span class="math-inline">\(p(x\mid z)\)</span>: <strong>posterior</strong>, mức tin vào <span class="math-inline">\(x\)</span> <em>sau khi</em> biết <span class="math-inline">\(z\)</span>.</li><li><span class="math-inline">\(\propto\)</span>: “tỷ lệ với”; bỏ hệ số chuẩn hóa không phụ thuộc <span class="math-inline">\(x\)</span> vì nó không làm đổi vị trí cực đại.</li><li><span class="math-inline">\(x_{\rm MAP}\)</span>: trạng thái làm posterior lớn nhất.</li></ul>
+<p><strong>Tác dụng:</strong> cho phép kết hợp thông tin cũ với phép đo mới trong một mô hình xác suất. Khi residual được mô hình bằng Gaussian, lấy âm log biến phép nhân các xác suất thành tổng bình phương có trọng số:</p>
+<div class="math-display">\[
+x^*=\arg\min_x\frac12\sum_i
+r_i(x)^\top\Sigma_i^{-1}r_i(x).
+\]</div>
+<p>Ở công thức tổng quát, <span class="math-inline">\(i\)</span> chạy qua các factor; <span class="math-inline">\(r_i(x)\)</span> có thể là vector; <span class="math-inline">\(\Sigma_i\)</span> là covariance của <strong>chính residual đó</strong>; <span class="math-inline">\(\tfrac12\)</span> tiện cho đạo hàm và không đổi vị trí nghiệm. Các đơn vị khác nhau, như m và rad, được đưa về mức ảnh hưởng tương ứng thông qua covariance phù hợp.</p>
+<p><strong>Ví dụ 1D [Suy ra]:</strong> giả sử đã quy hai nguồn về cùng trục vị trí. Dự đoán ban đầu <span class="math-inline">\(x_0=2{,}5\)</span> m với <span class="math-inline">\(\sigma_0=0{,}5\)</span> m; phép đo mới <span class="math-inline">\(z=2{,}0\)</span> m với <span class="math-inline">\(\sigma_z=0{,}1\)</span> m:</p>
+<div class="math-display">\[
+x_{\rm MAP}=\arg\min_x
+\left[\frac{(x-x_0)^2}{\sigma_0^2}
+     +\frac{(x-z)^2}{\sigma_z^2}\right]
+=\frac{4\cdot2{,}5+100\cdot2{,}0}{4+100}
+\approx2{,}019\ {\rm m}.
+\]</div>
+<p>Ở đây prior có trọng số <span class="math-inline">\(1/0{,}5^2=4\)</span>, phép đo mới có trọng số <span class="math-inline">\(1/0{,}1^2=100\)</span>. Nghiệm gần phép đo mới hơn. <strong>Đây là ví dụ để học MAP, không phải công thức scan-to-map của LIO-SAM gốc</strong>: source dùng dự đoán IMU làm khởi tạo scan matching và một graph IMU riêng nhận pose LiDAR correction (xem D2–D3).</p>
+<h4 id="a2-5-jacobian-va-gauss-newton-biet-phai-sua-bien-theo-huong-nao">A2.5. Jacobian và Gauss–Newton: biết phải sửa biến theo hướng nào</h4>
+<p><strong>Công thức đạo hàm và xấp xỉ [Suy ra]:</strong></p>
+<div class="math-display">\[
+J_{ij}=\frac{\partial r_i}{\partial x_j},
+\qquad
+r(x_k+\delta)\approx r(x_k)+J\delta.
+\]</div>
+<ul><li><span class="math-inline">\(r_i\)</span>: residual thứ <span class="math-inline">\(i\)</span>; <span class="math-inline">\(x_j\)</span>: biến thứ <span class="math-inline">\(j\)</span>. Nếu có <span class="math-inline">\(m\)</span> residual và <span class="math-inline">\(n\)</span> biến, Jacobian <span class="math-inline">\(J\)</span> có <span class="math-inline">\(m\)</span> hàng và <span class="math-inline">\(n\)</span> cột.</li><li><span class="math-inline">\(x_k\)</span>: nghiệm đang thử ở vòng lặp thứ <span class="math-inline">\(k\)</span>; <span class="math-inline">\(\delta\)</span>: bước sửa nhỏ cho nghiệm đó.</li><li><span class="math-inline">\(J\delta\)</span>: dự đoán residual sẽ thay đổi thế nào nếu sửa biến bằng <span class="math-inline">\(\delta\)</span>. Phép xấp xỉ chỉ đáng tin <strong>gần</strong> <span class="math-inline">\(x_k\)</span>.</li></ul>
+<p><strong>Tác dụng:</strong> thay bài toán phi tuyến khó giải bằng một bài toán gần tuyến tính tại pose hiện tại. Với covariance gom thành ma trận trọng số <span class="math-inline">\(W\)</span>, bước Gauss–Newton được tìm qua</p>
+<div class="math-display">\[
+(J^\top WJ)\delta=-J^\top Wr,\qquad
+x_{k+1}=x_k\boxplus\delta.
+\]</div>
+<ul><li><span class="math-inline">\(r\)</span> và <span class="math-inline">\(J\)</span> được tính tại <span class="math-inline">\(x_k\)</span>; <span class="math-inline">\(W\)</span> chứa trọng số của các residual.</li><li><span class="math-inline">\(J^\top WJ\)</span> tóm tắt các hướng mà phép đo cung cấp thông tin. Nếu nó thiếu hạng, một số hướng không được quan sát đủ.</li><li><span class="math-inline">\(\delta\)</span> là bước sửa tìm được; <span class="math-inline">\(\boxplus\)</span> nghĩa là <strong>cách cập nhật trạng thái</strong>. Trong ví dụ một số, đó là cộng bình thường; với pose 3D phải định nghĩa phép cập nhật quay, nên không tự thay <span class="math-inline">\(\boxplus\)</span> bằng cộng từng góc.</li></ul>
+<p><strong>Ví dụ một vòng lặp:</strong> muốn <span class="math-inline">\(x^2=4\)</span>, ta đặt <span class="math-inline">\(r(x)=x^2-4\)</span>. Bắt đầu <span class="math-inline">\(x_0=3\)</span> thì <span class="math-inline">\(r=5\)</span> và <span class="math-inline">\(J=dr/dx=2x_0=6\)</span>. Với <span class="math-inline">\(W=1\)</span>, công thức cho <span class="math-inline">\(36\delta=-30\)</span>, vậy <span class="math-inline">\(\delta=-5/6\)</span> và <span class="math-inline">\(x_1\approx2{,}167\)</span>. Tính lại <span class="math-inline">\(r,J\)</span> tại <span class="math-inline">\(x_1\)</span> rồi lặp sẽ tiến gần nghiệm 2. Jacobian cho biết bước sửa, không phải một phép đo mới.</p>
+<h4 id="a2-6-lm-suy-bien-va-outlier-khi-giai-phuong-trinh-chua-du">A2.6. LM, suy biến và outlier: khi giải phương trình chưa đủ</h4>
+<p><strong>Levenberg–Marquardt (LM), dạng minh họa:</strong></p>
+<div class="math-display">\[
+(J^\top WJ+\lambda I)\delta=-J^\top Wr,\qquad\lambda&gt;0.
+\]</div>
+<ul><li><span class="math-inline">\(\lambda I\)</span> là hạng <strong>damping</strong>; <span class="math-inline">\(\lambda\)</span> quyết định mức hạn chế bước sửa. Dạng solver thực tế có thể dùng cách scale khác với <span class="math-inline">\(I\)</span>.</li><li><strong>Tác dụng:</strong> nếu xấp xỉ tuyến tính tại <span class="math-inline">\(x_k\)</span> chưa tốt, thử bước thận trọng hơn; solver điều chỉnh damping theo việc bước thử có giảm chi phí thật hay không.</li><li><strong>Ví dụ:</strong> ở bài <span class="math-inline">\(x^2=4\)</span> với <span class="math-inline">\(x_0=3\)</span>, Gauss–Newton cho <span class="math-inline">\(\delta=-30/36\approx-0{,}833\)</span>. Nếu minh họa LM bằng <span class="math-inline">\(\lambda=36\)</span>, bước là <span class="math-inline">\(\delta=-30/(36+36)\approx-0{,}417\)</span>: nhỏ hơn. Không được kết luận tên hàm LMOptimization() của LIO-SAM chứng minh source dùng damping này; phải đọc phép tính trong hàm.</li></ul>
+<p><strong>Suy biến, ví dụ hai biến [Suy ra]:</strong> nếu chỉ có một bức tường <span class="math-inline">\(x=2\)</span> và residual điểm–mặt là <span class="math-inline">\(r(x,y)=x-2\)</span>, thì</p>
+<div class="math-display">\[
+J=\begin{bmatrix}1&amp;0\end{bmatrix},
+\qquad
+J^\top J=\begin{bmatrix}1&amp;0\\0&amp;0\end{bmatrix}.
+\]</div>
+<p>Cột theo <span class="math-inline">\(y\)</span> bằng 0: dịch dọc theo tường không đổi residual, nên dữ liệu này không cho biết <span class="math-inline">\(y\)</span> là bao nhiêu. Ma trận <span class="math-inline">\(J^\top J\)</span> thiếu hạng; damping có thể giúp bước số ổn định nhưng **không tạo thông tin hình học về <span class="math-inline">\(y\)</span>**. Trong LIO-SAM, cần xem code nhận biết và xử lý các hướng suy biến trong scan matching.</p>
+<p><strong>Outlier:</strong> một điểm trên người đi ngang có thể bị ghép nhầm với tường tĩnh. Nó tạo residual không đại diện cho pose robot; bình phương residual lớn có thể kéo nghiệm sai. Tùy bước thuật toán, ta kiểm tra hình học trước khi nhận tương ứng, đặt ngưỡng hoặc dùng hàm mất mát bền vững. Residual lớn cũng có thể do pose khởi tạo, thời gian hoặc ngoại chuẩn sai; phải tìm nguyên nhân trước khi loại dữ liệu.</p>
+<h4 id="a2-7-tu-kiem-tra-truoc-khi-hoc-c2-c3-va-d2">A2.7. Tự kiểm tra trước khi học C2, C3 và D2</h4>
+<ol><li>Giải thích khác nhau giữa <strong>sai số đo</strong> (thường không biết khi chạy) và <strong>residual</strong> (tính được từ pose đang thử).</li><li>Tính lại ví dụ <span class="math-inline">\(z_1=2\)</span> m, <span class="math-inline">\(z_2=3\)</span> m; đổi hai <span class="math-inline">\(\sigma\)</span> và dự đoán nghiệm sẽ nghiêng về đâu trước khi bấm máy.</li><li>Với <span class="math-inline">\(r(x)=x^2-4\)</span>, tự tính <span class="math-inline">\(J\)</span> và bước Gauss–Newton từ <span class="math-inline">\(x_0=3\)</span>; thử thêm một <span class="math-inline">\(\lambda\)</span> để thấy bước LM thay đổi ra sao.</li><li>Từ <span class="math-inline">\(J=[1\ 0]\)</span>, giải thích vì sao một bức tường phẳng không xác định được chuyển động dọc tường qua residual này.</li><li>Chỉ ra trong luồng LIO-SAM: residual điểm–đường/mặt ở C2, tối ưu pose ở C3, prior/correction và các graph ở D2–D3.</li></ol>
+<p><strong>Đầu ra để code sau A2:</strong> một bài toán 1D/2D nhỏ có weighted least squares, một vòng Gauss–Newton và trường hợp suy biến; kiểm chứng nghiệm bằng tính tay và Jacobian bằng sai phân hữu hạn. Chưa cần viết iSAM2 ở bài này.</p>
+<p><strong>Đọc gốc:</strong> <a href="https://arxiv.org/html/2007.00258">LIO-SAM, III-A và III-C3</a> nêu MAP và tối ưu LiDAR; <a href="https://gtsam.org/tutorials/intro.html">GTSAM, Factor Graphs and GTSAM</a> giải thích biến/factor/prior; <a href="https://ceres-solver.readthedocs.io/latest/nnls_solving.html">Ceres, Solving Non-linear Least Squares</a> giải thích Jacobian, tuyến tính hóa và bước tối ưu. Đối chiếu <a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/src/mapOptmization.cpp#L1158-L1279">LMOptimization() trong source LIO-SAM</a> khi học C3.</p>
+<h3 id="a3-hop-dong-du-lieu-thoi-gian-va-ngoai-chuan">A3. Hợp đồng dữ liệu, thời gian và ngoại chuẩn</h3>
+<p><strong>Công thức cần kiểm tra [Suy ra]:</strong> <span class="math-inline">\(t_k=t_{\text{scan}}+\tau_k\)</span>; nếu hai đồng hồ có lệch cố định theo quy ước đã chọn, <span class="math-inline">\(t^{I}=t^{L}+\Delta t_{LI}\)</span>. Với mọi điểm <span class="math-inline">\(k\)</span>, khoảng IMU phải bao phủ <span class="math-inline">\(t_k\)</span>; một <span class="math-inline">\(t_{\text{scan}}\)</span> không thể thay thế mọi <span class="math-inline">\(\tau_k\)</span>. Ghi rõ đơn vị của <span class="math-inline">\(\tau_k\)</span>, độ phân giải timestamp và ý nghĩa <span class="math-inline">\(\Delta t_{LI}\)</span> trước khi nội suy.</p>
+<ul><li><strong>Nền:</strong> <code>header.stamp</code> của scan, thời gian tương đối từng điểm, <code>ring</code>, thứ tự điểm, hàng đợi IMU, thời gian bắt đầu/kết thúc scan, lệch đồng hồ và độ trễ truyền. <code>ring</code> là kênh tia, không phải chỉ số thời gian. Kiểm tra <code>NaN</code>, phạm vi đo, mật độ điểm, thứ tự timestamp và frame trước thuật toán.</li><li><strong>Thuật toán cần nắm:</strong> nội suy chỉ hợp lệ khi có mẫu bao quanh thời điểm cần tính; ngoại chuẩn tịnh tiến/quay và biến đổi acceleration, gyro, orientation; khác nhau giữa hiệu chuẩn thời gian, đồng bộ thông điệp và deskew.</li><li><strong>Tạo:</strong> đặc tả đầu vào <code>TimedPoint/Scan/ImuSample</code> với đơn vị SI, frame, mốc thời gian; bộ kiểm tra cho trường thiếu/không hợp lệ; bảng phản ứng <code>xử lý / bỏ scan / báo lỗi</code>. Quyết định cách đồng bộ và nguồn timestamp trước khi tích hợp.</li><li><strong>Kiểm chứng:</strong> ca dữ liệu IMU thiếu đầu/cuối scan, timestamp lùi, <code>ring</code> ngoài phạm vi, điểm không hữu hạn và ngoại chuẩn đảo chiều; mọi ca phải có kết quả rõ ràng.</li><li><strong>Giới hạn dự án:</strong> cloud <code>/points</code> của mô phỏng hiện mới có <code>x,y,z,intensity</code>; nó không đủ để kiểm chứng nguyên bản deskew theo từng điểm và phép xếp <code>ring</code> của LiDAR quay. Có thể dùng dữ liệu tổng hợp hoặc bag hợp lệ cho các bài này; không gán <code>time</code> giả rồi coi là đo thật. Chi tiết cảm biến mô phỏng cần được kiểm tra lại khi chuyển sang thực nghiệm.</li><li><strong>Nguồn:</strong> <a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/README.md">README, Prepare lidar/IMU data</a>, <a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/src/imageProjection.cpp">imageProjection.cpp: cachePointCloud, deskewInfo</a>, <a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/config/params.yaml">params.yaml</a>.</li></ul>
+<h2 id="4-chang-b-tu-phep-do-den-dac-trung-hinh-hoc">4. Chặng B — từ phép đo đến đặc trưng hình học</h2>
+<h3 id="b1-tich-luy-chuyen-dong-imu-trong-mot-scan">B1. Tích lũy chuyển động IMU trong một scan</h3>
+<p><strong>Công thức học [Paper (2), (6), rời rạc hóa]:</strong></p>
+<div class="math-display">\[
+\hat\omega_k=\omega_k+b_g+n_g,\qquad
+R_{k+1}\approx R_k\operatorname{Exp}\!\big((\hat\omega_k-b_g)\Delta t_k\big).
+\]</div>
+<p>Tự tính scan dài <span class="math-inline">\(0{,}1\,s\)</span> khi robot quay đều <span class="math-inline">\(90^\circ/s\)</span>: điểm ở giữa scan lệch khoảng <span class="math-inline">\(4{,}5^\circ\)</span> so với đầu scan. Source deskew tích lũy các thành phần góc từ số đo gyro đã đổi frame; nó không gọi GTSAM preintegration hay áp trực tiếp bias ước lượng của graph IMU trong hàm này. Công thức <span class="math-inline">\(\operatorname{Exp}\)</span> ở đây là mô hình hình học để học, <strong>không phải chép nguyên phép tính source</strong>.</p>
+<ul><li><strong>Nền:</strong> gyro đo tốc độ góc, accelerometer đo gia tốc riêng, trọng lực, bias/nhiễu, tích phân rời rạc và nội suy theo timestamp. Tách luồng này khỏi <strong>IMU preintegration factor</strong> ở chặng D.</li><li><strong>Thuật toán cần nắm:</strong> tính hướng tương đối từ mẫu IMU phủ toàn scan; chọn mốc đầu scan và tra hướng ở thời gian từng điểm; hiểu giới hạn khi chỉ sửa méo quay.</li><li><strong>Tạo:</strong> hàm trả chuyển động tương đối theo thời gian từng điểm; dữ liệu tổng hợp robot đứng yên, quay đều, quay tăng tốc.</li><li><strong>Kiểm chứng:</strong> khi đứng yên transform gần đồng nhất; quay đều cho đúng góc tại đầu/giữa/cuối; thiếu đoạn IMU phải bị phát hiện.</li><li><strong>Nguồn:</strong> <a href="https://arxiv.org/html/2007.00258">bài báo, III-A/III-B</a>; <a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/src/imageProjection.cpp">imageProjection.cpp: imuDeskewInfo, deskewPoint</a>.</li></ul>
+<h3 id="b2-deskew-tung-diem">B2. Deskew từng điểm</h3>
+<p><strong>Công thức hình học [Suy ra; đối chiếu với deskewPoint()]:</strong></p>
+<div class="math-display">\[
+p_L^{\,t_{\rm ref}}=
+T_{WL}(t_{\rm ref})^{-1}T_{WL}(t_k)\,p_L^{\,t_k},
+\qquad t_k=t_0+\tau_k.
+\]</div>
+<p>Điểm tại thời điểm <span class="math-inline">\(t_k\)</span> được biểu diễn lại như thể đo ở frame LiDAR tại <span class="math-inline">\(t_{\rm ref}\)</span>. Nếu robot không chuyển động, tích hai transform là đơn vị. Source gốc dùng transform của <strong>điểm hợp lệ đầu tiên</strong> làm mốc trong hàm deskew, và thành phần tịnh tiến mặc định bằng 0; không được âm thầm coi mốc đó luôn đúng bằng timestamp đầu thông điệp.</p>
+<ul><li><strong>Nền:</strong> một scan LiDAR quay được đo tuần tự; pose thay đổi trong thời gian đó. Chọn rõ frame và thời điểm tham chiếu của scan.</li><li><strong>Thuật toán cần nắm:</strong> với điểm đo tại <code>t_i</code>, đưa nó về frame ở <code>t_ref</code> bằng chuyển động tương đối; phân biệt khử méo quay và tịnh tiến. Trong source gốc tại commit đối chiếu, đường <code>findPosition()</code> cho tịnh tiến đang bị chú thích, nên cần học hành vi code thực tế bên cạnh mô tả ý tưởng trong bài báo.</li><li><strong>Tạo:</strong> scan đã deskew và thống kê tỷ lệ điểm không deskew được; giao diện có chỗ biểu diễn mức hỗ trợ <code>rotation-only</code>/đầy đủ, nhưng chưa chốt chính sách cho dự án.</li><li><strong>Kiểm chứng:</strong> quét một tường phẳng khi robot quay: điểm sau deskew gần cùng mặt phẳng hơn dữ liệu thô; khi chuyển động bằng 0 đầu ra gần như không đổi; không đánh giá hiệu quả deskew bằng scan mô phỏng chụp đồng thời.</li><li><strong>Nguồn:</strong> <a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/README.md">README, point time</a>, <a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/src/imageProjection.cpp">imageProjection.cpp: findPosition, deskewPoint</a>.</li></ul>
+<h3 id="b3-chieu-scan-thanh-range-image-va-lay-lai-cloud-co-cau-truc">B3. Chiếu scan thành range image và lấy lại cloud có cấu trúc</h3>
+<p><strong>Công thức [Source, nhánh LiDAR quay Velodyne/Ouster]:</strong></p>
+<div class="math-display">\[
+r=\sqrt{x^2+y^2+z^2},\quad
+\text{row}=\text{ring},\quad
+\theta=\operatorname{atan2}(x,y)\frac{180}{\pi},\quad
+\text{col}=-\operatorname{round}\!\left(\frac{\theta-90}{360/H}\right)+\frac H2.
+\]</div>
+<p><span class="math-inline">\(H\)</span> là số cột ngang; source xử lý cột vượt biên sau phép tính và bỏ điểm nếu ô đã có giá trị. Công thức cột này phụ thuộc quy ước trục và kiểu cảm biến trong code; không suy ra nó đúng cho mọi LiDAR.</p>
+<ul><li><strong>Nền:</strong> hàng <code>ring</code>, cột theo góc quét, khoảng cách của điểm, ô trống/nhiều điểm một ô, dải quét ngang và dọc. Tính riêng đầu ra “ảnh khoảng cách” với ảnh RGB.</li><li><strong>Thuật toán cần nắm:</strong> lọc khoảng cách; chiếu điểm vào ô; chọn điểm khi trùng ô; ghi chỉ số điểm hợp lệ để tìm hàng xóm; lấy lại cloud có thứ tự cho bước tính độ gồ ghề.</li><li><strong>Tạo:</strong> ma trận range và metadata mỗi ring/điểm, cùng cloud đã deskew và sắp đúng thứ tự. Định nghĩa rõ đầu vào của module B4.</li><li><strong>Kiểm chứng:</strong> dữ liệu tổng hợp vài ring cho đúng hàng/cột; điểm ngoài tầm, <code>NaN</code>, ô trống và cạnh biên không làm lệch chỉ số; xem lại phân bố điểm trên từng ring.</li><li><strong>Nguồn:</strong> <a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/src/imageProjection.cpp">imageProjection.cpp: projectPointCloud, cloudExtraction</a>, <a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/msg/cloud_info.msg">cloud_info.msg</a>.</li></ul>
+<h3 id="b4-chon-dac-trung-canh-va-mat">B4. Chọn đặc trưng cạnh và mặt</h3>
+<p><strong>Công thức [Source, calculateSmoothness()]:</strong></p>
+<div class="math-display">\[
+d_i=\sum_{\substack{k=-5\\k\ne0}}^{5}r_{i+k}-10r_i,
+\qquad c_i=d_i^2.
+\]</div>
+<p><span class="math-inline">\(r_i\)</span> ở đây là <strong>range của điểm đã xếp thứ tự</strong>, không phải residual tối ưu. <span class="math-inline">\(c_i\)</span> lớn là ứng viên cạnh, nhỏ là ứng viên mặt; còn phải kiểm tra che khuất, biên ring và chọn theo vùng trước khi dùng làm feature.</p>
+<ul><li><strong>Nền:</strong> biến thiên khoảng cách theo lân cận trong cùng ring, độ gồ ghề, điểm bị che khuất, mặt nhẵn, cạnh; voxel để giảm mật độ mặt.</li><li><strong>Thuật toán cần nắm:</strong> tính smoothness; đánh dấu điểm bị che khuất/song song tia; chia vùng trước khi xếp hạng; chọn cạnh với roughness lớn và mặt với roughness nhỏ; tránh chọn dồn một cụm điểm.</li><li><strong>Tạo:</strong> <code>FeatureSet</code> gồm cloud cạnh, cloud mặt và thống kê số điểm bị loại theo lý do.</li><li><strong>Kiểm chứng:</strong> mô hình tường phẳng + mép cửa cho phân bố đặc trưng dễ giải thích; kiểm tra trường hợp tường rất xa, cảnh quá ít điểm và nhiễu; so số điểm/thời gian với code gốc trên cùng scan.</li><li><strong>Nguồn:</strong> <a href="https://arxiv.org/html/2007.00258">bài báo, III-C</a>, <a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/src/featureExtraction.cpp">featureExtraction.cpp: calculateSmoothness, markOccludedPoints, extractFeatures</a>.</li></ul>
+<h2 id="5-chang-c-lidar-odometry-va-ban-do-cuc-bo">5. Chặng C — LiDAR odometry và bản đồ cục bộ</h2>
+<h3 id="c1-luu-keyframe-va-tao-local-map">C1. Lưu keyframe và tạo local map</h3>
+<p><strong>Công thức [Paper III-C1 + Suy ra]:</strong> với tập chỉ số keyframe được chọn <span class="math-inline">\(S_i\)</span>,</p>
+<div class="math-display">\[
+\mathcal M_i^e=\operatorname{Voxel}_e\!\left(\bigcup_{j\in S_i}T_{W B_j}\mathcal F_j^e\right),
+\qquad
+\mathcal M_i^p=\operatorname{Voxel}_p\!\left(\bigcup_{j\in S_i}T_{W B_j}\mathcal F_j^p\right).
+\]</div>
+<p><span class="math-inline">\(\mathcal F_j^e,\mathcal F_j^p\)</span> là feature trong frame body/keyframe; nếu chúng thực tế nằm trong frame LiDAR thì phải chèn <span class="math-inline">\(T_{BL}\)</span> theo hợp đồng dữ liệu. Bài báo chọn <span class="math-inline">\(S_i\)</span> bằng số keyframe mới nhất; source chọn theo bán kính và thời gian. Điều kiện keyframe có thể viết dạng kiểm tra <span class="math-inline">\(\|\Delta p\|&gt;d_{\rm th}\)</span> <strong>hoặc</strong> thay đổi góc vượt ngưỡng; phải xem source kiểm tra từng thành phần roll/pitch/yaw ra sao.</p>
+<ul><li><strong>Nền:</strong> scan hiện tại khác keyframe; feature cloud gắn với pose keyframe; world-frame cloud có thể phải dựng lại khi pose keyframe đổi. Voxel downsampling khác bản đồ occupancy xác suất.</li><li><strong>Thuật toán cần nắm:</strong> quyết định giữ keyframe theo dịch chuyển/góc; lấy keyframe lân cận, biến đổi cạnh/mặt vào cùng frame, voxel hóa, xây chỉ mục tìm hàng xóm; xử lý bootstrap khi chưa có map. Bài báo mô tả cửa sổ số keyframe cố định, còn source tại commit đối chiếu chọn theo bán kính, lấy mẫu pose và bổ sung keyframe mới theo thời gian: phải ghi rõ hành vi nào đang tái hiện.</li><li><strong>Tạo:</strong> kho keyframe và hai local feature maps (cạnh, mặt), với quy tắc rõ cho cache và invalidation sau đóng vòng.</li><li><strong>Kiểm chứng:</strong> đưa một keyframe qua pose đã biết cho điểm đúng vị trí; số keyframe và kích thước local map có giới hạn; sau thay pose cũ, map dựng lại đúng.</li><li><strong>Nguồn:</strong> <a href="https://arxiv.org/html/2007.00258">bài báo, III-C1</a>, <a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/src/mapOptmization.cpp">mapOptmization.cpp: extractSurroundingKeyFrames, saveFrame</a>.</li></ul>
+<h3 id="c2-tuong-ung-hinh-hoc-diem-duong-diem-mat">C2. Tương ứng hình học điểm–đường, điểm–mặt</h3>
+<p><strong>Công thức khoảng cách [Paper (10), (11), viết theo ký hiệu thống nhất]:</strong> gọi <span class="math-inline">\(q=T_{WB}p\)</span> là điểm scan đã đưa vào W; <span class="math-inline">\(a,b\)</span> xác định đường map; <span class="math-inline">\(a,b,c\)</span> xác định một mảng mặt phẳng map.</p>
+<div class="math-display">\[
+d_{\rm edge}(q)=\frac{\|(q-a)\times(q-b)\|}{\|a-b\|},\qquad
+d_{\rm plane}(q)=\frac{|(q-a)^\top[(b-a)\times(c-a)]|}
+{\|(b-a)\times(c-a)\|}.
+\]</div>
+<p>Mẫu số gần 0 nghĩa là tương ứng hình học không hợp lệ. Khi tối ưu, cần chọn residual có dấu/đạo hàm phù hợp và kiểm tra cách source <strong>fit</strong> đường, mặt từ hàng xóm; không lấy ba điểm tùy ý rồi coi đã tái hiện source.</p>
+<ul><li><strong>Nền:</strong> k-nearest-neighbors, PCA/eigenvalue để xác nhận cấu trúc đường hoặc mặt, khoảng cách điểm–đường/mặt, điều kiện suy biến, outlier.</li><li><strong>Thuật toán cần nắm:</strong> từ pose khởi tạo, đưa điểm scan sang map; tìm hàng xóm map; chỉ tạo residual nếu cấu trúc hình học đáng tin; phân biệt tương ứng cạnh và mặt.</li><li><strong>Tạo:</strong> tập residual kèm số tương ứng được chấp nhận/từ chối và lý do; interface riêng khỏi optimizer.</li><li><strong>Kiểm chứng:</strong> trên đường/mặt tổng hợp, residual gần 0 khi pose đúng và tăng theo perturbation; trường hợp hàng xóm không tạo được đường/mặt phải bị loại.</li><li><strong>Nguồn:</strong> <a href="https://arxiv.org/html/2007.00258">bài báo, III-C2, (10)–(11)</a>, <a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/src/mapOptmization.cpp">mapOptmization.cpp: cornerOptimization, surfOptimization</a>.</li></ul>
+<h3 id="c3-toi-uu-pose-scan-to-map">C3. Tối ưu pose scan-to-map</h3>
+<p><strong>Công thức học cho optimizer [Suy ra từ residual Paper III-C3]:</strong></p>
+<div class="math-display">\[
+T^*=\arg\min_{T\in SE(3)}
+\left[\sum_{k\in E}w_k^e\,r_{e,k}(T)^2+
+      \sum_{k\in P}w_k^p\,r_{p,k}(T)^2\right],
+\qquad
+(J^\top WJ)\delta=-J^\top Wr.
+\]</div>
+<p><span class="math-inline">\(E,P\)</span> là tập tương ứng cạnh/mặt đã qua kiểm tra; <span class="math-inline">\(r\)</span> là residual có dấu, còn <span class="math-inline">\(d_{\rm edge},d_{\rm plane}\)</span> ở C2 là <strong>khoảng cách không âm</strong>. Bài báo (11) viết tổng khoảng cách; biểu thức bình phương ở đây là bài toán chuẩn để học linearization, <strong>không được tuyên bố là chép nguyên (11) hoặc mã C++</strong>. Source có bước chiếu bỏ hướng suy biến trong hàm tên LMOptimization; phải đọc đúng phép tính trước khi chọn solver.</p>
+<ul><li><strong>Nền:</strong> 6 bậc tự do, Jacobian residual theo pose, linearization/lặp, stopping criteria, nghiệm suy biến; pose khởi tạo từ IMU là điểm bắt đầu chứ không phải phép đo hình học cuối cùng.</li><li><strong>Thuật toán cần nắm:</strong> lặp tìm tương ứng → tối ưu pose → cập nhật tương ứng; cách source giới hạn pose theo IMU/độ cao hoặc thông số cấu hình; khi nào bỏ tối ưu vì thiếu đặc trưng. Hàm <code>LMOptimization()</code> trong source giải hệ tuyến tính và xử lý suy biến; tên hàm không đủ để kết luận có bước damping của Levenberg–Marquardt.</li><li><strong>Tạo:</strong> <code>RegistrationResult</code> gồm pose, trạng thái hội tụ/suy biến, residual, số vòng lặp, thời gian; không trả “pose tốt” khi thực tế thiếu ràng buộc.</li><li><strong>Kiểm chứng:</strong> scan tổng hợp bị dịch/quay một lượng biết trước hội tụ khi khởi tạo đủ gần; ca hành lang/một mặt phẳng báo suy biến; kiểm tra Jacobian bằng sai phân hữu hạn.</li><li><strong>Nguồn:</strong> <a href="https://arxiv.org/html/2007.00258">bài báo, III-C2/III-C3</a>, <a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/src/mapOptmization.cpp">mapOptmization.cpp: updateInitialGuess, scan2MapOptimization, LMOptimization</a>.</li></ul>
+<h3 id="c4-tu-pose-lidar-den-rang-buoc-keyframe">C4. Từ pose LiDAR đến ràng buộc keyframe</h3>
+<p><strong>Công thức [Paper (12), diễn giải bằng phép nghịch đảo SE(3)]:</strong></p>
+<div class="math-display">\[
+Z^{L}_{ij}=T_{W B_i}^{-1}T_{W B_j},\qquad
+r^{L}_{ij}=\operatorname{Log}\!\left((Z^{L}_{ij})^{-1}T_{W B_i}^{-1}T_{W B_j}\right).
+\]</div>
+<p><span class="math-inline">\(Z^L_{ij}\)</span> được tính một lần từ hai pose LiDAR đã khớp và <strong>giữ cố định khi tạo factor</strong>; các <span class="math-inline">\(T_{W B_i},T_{W B_j}\)</span> trong residual là biến của đồ thị, có thể đổi sau tối ưu. Residual bằng 0 nếu hai biến pose khớp phép đo. Ký hiệu <span class="math-inline">\(T_i^\top T_j\)</span> trong bài báo (12) cần được đọc theo quy ước của tác giả; với <strong>ma trận thuần nhất SE(3)</strong>, triển khai phải dùng nghịch đảo <span class="math-inline">\(T_i^{-1}\)</span>, không dùng phép chuyển vị toàn ma trận.</p>
+<ul><li><strong>Nền:</strong> pose toàn cục và chuyển động tương đối; prior của keyframe đầu; độ tin cậy của odometry; chọn keyframe sau khi đã có pose.</li><li><strong>Thuật toán cần nắm:</strong> tính <code>T_i^{-1} T_j</code> đúng chiều và chỉ thêm node/factor khi keyframe được chấp nhận. Phân biệt pose scan đang xử lý, pose keyframe lưu trong đồ thị và pose đã sửa sau loop. Mapping có thể xử lý một scan và công bố pose hiệu chỉnh dù scan đó không trở thành keyframe.</li><li><strong>Tạo:</strong> chuỗi keyframe cùng LiDAR odometry factors; đầu ra LiDAR pose đã hiệu chỉnh để gửi ngược cho nhánh IMU.</li><li><strong>Kiểm chứng:</strong> quỹ đạo tổng hợp đi một vòng cho pose tương đối và phép hợp thành đúng; không nhân đôi keyframe khi scan đứng yên; đầu ra liên tục qua thời điểm bỏ keyframe.</li><li><strong>Nguồn:</strong> <a href="https://arxiv.org/html/2007.00258">bài báo, III-C3</a>, <a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/src/mapOptmization.cpp">mapOptmization.cpp: saveKeyFramesAndFactor, addOdomFactor</a>.</li></ul>
+<h2 id="6-chang-d-ket-hop-chat-imu-va-do-thi">6. Chặng D — kết hợp chặt IMU và đồ thị</h2>
+<h3 id="d1-mo-hinh-imu-va-tich-phan-truoc">D1. Mô hình IMU và tích phân trước</h3>
+<p><strong>Công thức [Paper (2)–(9)]:</strong></p>
+<div class="math-display">\[
+\hat\omega=\omega+b_g+n_g,\qquad
+\hat a=R_{BW}(a_W-g_W)+b_a+n_a,
+\]</div>
+<div class="math-display">\[
+R_{k+1}=R_k\operatorname{Exp}((\hat\omega_k-b_g)\Delta t),\quad
+v_{k+1}=v_k+g_W\Delta t+R_k(\hat a_k-b_a)\Delta t,
+\]</div>
+<div class="math-display">\[
+p_{k+1}=p_k+v_k\Delta t+\tfrac12g_W\Delta t^2+
+\tfrac12R_k(\hat a_k-b_a)\Delta t^2.
+\]</div>
+<p>Sau khi hiểu tích phân từng mẫu, tự suy ra đại lượng tương đối giữa <span class="math-inline">\(i,j\)</span>:</p>
+<div class="math-display">\[
+\Delta R_{ij}=R_i^\top R_j,\quad
+\Delta v_{ij}=R_i^\top(v_j-v_i-g_W\Delta t_{ij}),\quad
+\Delta p_{ij}=R_i^\top(p_j-p_i-v_i\Delta t_{ij}-\tfrac12g_W\Delta t_{ij}^2).
+\]</div>
+<p>Để <strong>tính</strong> các delta đó từ mẫu IMU, bắt đầu <span class="math-inline">\(\Delta R=I,\Delta v=0,\Delta p=0\)</span> tại <span class="math-inline">\(i\)</span>, rồi lặp với mỗi mẫu <span class="math-inline">\(k\)</span> giữa <span class="math-inline">\(i\)</span> và <span class="math-inline">\(j\)</span>:</p>
+<div class="math-display">\[
+\Delta R_{k+1}=\Delta R_k\operatorname{Exp}((\hat\omega_k-b_g)\Delta t_k),\quad
+\Delta v_{k+1}=\Delta v_k+\Delta R_k(\hat a_k-b_a)\Delta t_k,
+\]</div>
+<div class="math-display">\[
+\Delta p_{k+1}=\Delta p_k+\Delta v_k\Delta t_k+
+\tfrac12\Delta R_k(\hat a_k-b_a)\Delta t_k^2.
+\]</div>
+<p>Đây là <strong>[Suy ra]</strong> ở dạng Euler danh định để người học tự code thử, chưa gồm truyền covariance/Jacobian bias. Một residual IMU ở mức khái niệm là</p>
+<div class="math-display">\[
+r_R=\operatorname{Log}(\Delta R_{ij}^{-1}R_i^\top R_j),\quad
+r_v=R_i^\top(v_j-v_i-g_W\Delta t_{ij})-\Delta v_{ij},\quad
+r_p=R_i^\top(p_j-p_i-v_i\Delta t_{ij}-\tfrac12g_W\Delta t_{ij}^2)-\Delta p_{ij}.
+\]</div>
+<p>Các phương trình động học trên lược bỏ hạng nhiễu khi tính <strong>dự đoán danh định</strong>; lúc làm factor phải đưa noise, covariance và bias correction trở lại. Paper dẫn <a href="https://arxiv.org/abs/1512.02363">công trình preintegration của Forster và cộng sự</a> cho phần suy dẫn đầy đủ; khi dùng GTSAM phải đối chiếu cả <a href="https://gtsam.org/doxygen/a04695.html">API preintegration</a> và phiên bản thư viện thực tế.</p>
+<ul><li><strong>Nền:</strong> trạng thái <code>R,p,v,b_g,b_a</code>, trọng lực, gyro/acceleration bias, white noise, random walk; phân biệt “tích lũy hướng cho deskew” với preintegration tạo factor giữa hai trạng thái.</li><li><strong>Thuật toán cần nắm:</strong> tích lũy <code>ΔR, Δv, Δp</code> giữa hai lần tạo trạng thái trong graph IMU (theo source là hai lần LiDAR correction, không nhất thiết là hai keyframe); ảnh hưởng của bias và hiệp phương sai; tái tích phân/cập nhật sau khi bias đổi; điều kiện khởi tạo attitude và gravity.</li><li><strong>Tạo:</strong> module preintegration với giao diện <code>integrate(sample, dt)</code>, <code>reset</code>, trạng thái <code>delta + covariance</code>, và quy tắc xử lý timestamp lỗi.</li><li><strong>Kiểm chứng:</strong> chuyển động đứng yên/quay đều/gia tốc đều khớp nghiệm tổng hợp; thêm bias đã biết làm sai số tăng và hiệu chỉnh bias kéo lại; covariance tăng hợp lý khi tích lũy lâu.</li><li><strong>Nguồn:</strong> <a href="https://arxiv.org/html/2007.00258">bài báo, III-B, (2)–(9)</a>, <a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/src/imuPreintegration.cpp">imuPreintegration.cpp</a>.</li></ul>
+<h3 id="d2-do-thi-imu-ngan-han-va-vong-phan-hoi-lidar">D2. Đồ thị IMU ngắn hạn và vòng phản hồi LiDAR</h3>
+<p><strong>Công thức cấu trúc [Suy ra từ factor trong source]:</strong></p>
+<div class="math-display">\[
+\min_{\{R_i,p_i,v_i,b_i\}}
+\sum_i\|r^{\rm imu}_{i,i+1}\|_{\Sigma_{\rm imu}}^2+
+\sum_i\|b_{i+1}-b_i\|_{\Sigma_b}^2+
+\sum_i\|\operatorname{Log}((T_i^{L})^{-1}T_i^{I})\|_{\Sigma_L}^2.
+\]</div>
+<p><span class="math-inline">\(r^{\rm imu}=[r_R,r_v,r_p]\)</span> dùng các residual vừa nêu ở D1; hạng giữa mô tả bias biến đổi chậm. Hạng cuối là <strong>pose prior từ LiDAR correction</strong> trong graph IMU của source, không phải phép cộng hai pose. <span class="math-inline">\(T_i^L\)</span> phải đổi về đúng frame của trạng thái IMU trước khi tạo factor. Bài học cần chỉ ra lúc nào source cập nhật bias và reset preintegrator.</p>
+<ul><li><strong>Nền:</strong> prior, IMU factor, bias factor, correction từ LiDAR pose, dự đoán ở tần số IMU và tối ưu khi nhận pose LiDAR. Lý do reset đồ thị ngắn hạn nhưng giữ trạng thái cuối.</li><li><strong>Thuật toán cần nắm:</strong> luồng <code>IMU mẫu mới → dự đoán</code>; <code>LiDAR pose đã khớp → factor hiệu chỉnh → tối ưu pose/velocity/bias → reset preintegrator → dự đoán tiếp</code>. Source dùng pose LiDAR của các scan được mapping xử lý, không chỉ keyframe của đồ thị pose. Xem kỹ thời điểm đo và hai hàng đợi IMU của source.</li><li><strong>Tạo:</strong> đầu ra odometry nhanh và trạng thái bias, giao diện nhận LiDAR correction có timestamp/covariance, không tạo vòng feedback trùng lặp.</li><li><strong>Kiểm chứng:</strong> khi có bias gyro tổng hợp, odometry tự do trôi còn phiên bản có LiDAR correction giảm trôi; không mất tính liên tục khi reset đồ thị; phát hiện correction trễ hoặc ngoài khoảng.</li><li><strong>Nguồn:</strong> <a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/README.md">README, hai đồ thị</a>, <a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/src/imuPreintegration.cpp">imuPreintegration.cpp: odometryHandler, imuHandler, resetOptimization</a>.</li></ul>
+<h3 id="d3-do-thi-pose-keyframe-dai-han">D3. Đồ thị pose keyframe dài hạn</h3>
+<p><strong>Công thức cấu trúc [Suy ra từ graph pose trong source]:</strong></p>
+<div class="math-display">\[
+\min_{\{T_i\}}
+\|r_{\rm prior}(T_0)\|_{\Sigma_0}^2+
+\sum_{(i,j)\in\mathcal E_L}\|r^L_{ij}\|_{\Sigma_L}^2+
+\sum_{(i,j)\in\mathcal E_{\rm loop}}\|r^{\rm loop}_{ij}\|_{\Sigma_{\rm loop}}^2+
+\sum_{i\in\mathcal G}\|p(T_i)-p_i^{\rm GPS}\|_{\Sigma_{\rm GPS}}^2.
+\]</div>
+<p>Loop và GPS là các hạng <strong>tùy chọn</strong>. Chọn prior cho pose đầu để cố định gauge; sau khi nghiệm <span class="math-inline">\(T_i\)</span> đổi, các cloud keyframe phải được chiếu lại theo pose mới. Công thức mô tả lớp factor; không tự nó quy định thư viện hoặc thời điểm gọi iSAM2.</p>
+<ul><li><strong>Nền:</strong> node pose, LiDAR odometry factor, prior đầu hành trình, iSAM2/incremental update, covariance và gauge freedom. Đồ thị này giữ lịch sử keyframe; đồ thị IMU D2 phục vụ nhịp nhanh.</li><li><strong>Thuật toán cần nắm:</strong> thêm factor LiDAR từ C4; cập nhật graph; nhận pose keyframe đã tối ưu; đồng bộ lại local-map cache khi pose lịch sử đổi; quan hệ odometry liên tục với pose/map đã sửa.</li><li><strong>Tạo:</strong> backend pose graph cho keyframes, đường xuất quỹ đạo đã tối ưu và tín hiệu “poses changed” cho map.</li><li><strong>Kiểm chứng:</strong> chuỗi factor thẳng cho quỹ đạo đúng; thêm một ràng buộc giữa hai pose làm nghiệm cập nhật như mong đợi; không đổi pose lịch sử mà giữ nguyên world-cloud cache cũ.</li><li><strong>Nguồn:</strong> <a href="https://arxiv.org/html/2007.00258">bài báo, III-A/III-C3</a>, <a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/README.md">README, System architecture</a>, <a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/src/mapOptmization.cpp">mapOptmization.cpp: addOdomFactor, correctPoses</a>.</li></ul>
+<h2 id="7-chang-e-rang-buoc-dai-han-san-pham-ban-do-va-danh-gia">7. Chặng E — ràng buộc dài hạn, sản phẩm bản đồ và đánh giá</h2>
+<h3 id="e1-dong-vong-ung-vien-kiem-chung-factor">E1. Đóng vòng: ứng viên → kiểm chứng → factor</h3>
+<p><strong>Công thức kiểm tra và ràng buộc [Suy ra; Paper III-E]:</strong> sau khi ICP xác nhận hai vùng trùng nhau, tạo <span class="math-inline">\(Z^{\rm loop}_{ij}\)</span> và residual</p>
+<div class="math-display">\[
+r^{\rm loop}_{ij}=\operatorname{Log}\!\left(
+(Z^{\rm loop}_{ij})^{-1}T_i^{-1}T_j\right).
+\]</div>
+<p>ICP chỉ cung cấp một ứng viên đo hình học; cần kiểm tra fitness, số tương ứng và tính hợp lý trước khi đưa factor vào graph. Một <span class="math-inline">\(Z_{ij}\)</span> sai có thể kéo cả quỹ đạo lệch.</p>
+<ul><li><strong>Nền:</strong> place recognition/ứng viên gần nhau theo pose, cách loại vòng lặp quá gần về thời gian, ICP, fitness, false loop và tác động tới toàn đồ thị.</li><li><strong>Thuật toán cần nắm:</strong> source gốc dùng tìm ứng viên theo khoảng cách rồi ICP với cloud keyframe lân cận; thêm factor khi kiểm tra đạt. Đóng vòng là <strong>tùy chọn trong baseline</strong>, không được giả định luôn xảy ra. Tách phát hiện ứng viên, xác nhận hình học và áp factor thành ba bước.</li><li><strong>Tạo:</strong> <code>LoopCandidate</code>, <code>LoopConstraint</code> và nhật ký chấp nhận/từ chối; khả năng bật/tắt loop để so sánh.</li><li><strong>Kiểm chứng:</strong> hai lần thấy cùng vùng tạo correction hợp lý; cặp giống hình học nhưng khác nơi không được chấp nhận; sau loop, quỹ đạo/map cập nhật và số keyframe vẫn nhất quán.</li><li><strong>Nguồn:</strong> <a href="https://arxiv.org/html/2007.00258">bài báo, III-E</a>, <a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/README.md">README, Loop closure</a>, <a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/src/mapOptmization.cpp">mapOptmization.cpp: performLoopClosure, addLoopFactor</a>.</li></ul>
+<h3 id="e2-gps-hoac-nguon-tuyet-doi-khac-nhanh-tuy-chon">E2. GPS hoặc nguồn tuyệt đối khác (nhánh tùy chọn)</h3>
+<p><strong>Công thức factor vị trí [Suy ra từ Paper III-D]:</strong></p>
+<div class="math-display">\[
+r_i^{\rm GPS}=p(T_i)-z_i^{\rm GPS},\qquad
+E_i^{\rm GPS}=(r_i^{\rm GPS})^\top\Sigma_{{\rm GPS},i}^{-1}r_i^{\rm GPS}.
+\]</div>
+<p><span class="math-inline">\(z_i^{\rm GPS}\)</span> phải ở cùng hệ tọa độ và thời điểm với pose được ràng buộc. Residual này có ba thành phần vị trí; nó <strong>không trực tiếp</strong> đo hướng. Source ở commit đối chiếu chọn mẫu theo cửa sổ thời gian, nên phần đồng bộ phải có bài kiểm chứng riêng.</p>
+<ul><li><strong>Nền:</strong> vị trí toàn cục so với frame map cục bộ, hiệp phương sai, nội suy thời gian, ngoại chuẩn và hệ tọa độ địa lý → Cartesian.</li><li><strong>Thuật toán cần nắm:</strong> chính sách chấp nhận measurement theo chất lượng/covariance; factor vị trí không tự cung cấp roll/pitch/yaw; ảnh hưởng của GPS sai hoặc lệch thời gian. Bài báo nói nội suy GPS theo thời gian LiDAR; source tại commit đối chiếu lấy mẫu GPS trong cửa sổ thời gian và dùng nhiều điều kiện loại mẫu, không triển khai nội suy tuyến tính như mô tả ấy.</li><li><strong>Tạo:</strong> adapter GPS + factor tùy chọn, có thể tắt hoàn toàn mà đường LiDAR–IMU vẫn chạy.</li><li><strong>Kiểm chứng:</strong> GPS tốt giảm trôi trên quỹ đạo tổng hợp dài; GPS outlier không kéo hỏng quỹ đạo; tắt GPS tái tạo baseline không GPS.</li><li><strong>Nguồn:</strong> <a href="https://arxiv.org/html/2007.00258">bài báo, III-D</a>, <a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/src/mapOptmization.cpp">mapOptmization.cpp: addGPSFactor</a>.</li></ul>
+<h3 id="e3-ban-do-quy-dao-luu-va-phat-lai">E3. Bản đồ, quỹ đạo, lưu và phát lại</h3>
+<p><strong>Công thức tái dựng map [Suy ra]:</strong></p>
+<div class="math-display">\[
+\mathcal M_{\rm global}=
+\operatorname{Voxel}\!\left(
+\bigcup_{j\in K}T_{W B_j}\big(\mathcal F_j^e\cup\mathcal F_j^p\big)
+\right).
+\]</div>
+<p>Nếu feature lưu trong LiDAR frame thì dùng thêm <span class="math-inline">\(T_{BL}\)</span>. Sau loop, thay pose <span class="math-inline">\(T_{W B_j}\)</span> bằng nghiệm mới rồi dựng lại; việc xếp chồng các cloud đã publish trước đó không tự dịch các điểm cũ.</p>
+<ul><li><strong>Nền:</strong> cloud feature raw trong keyframe, pose keyframe đã tối ưu, map dựng theo pose hiện tại; phân biệt cloud hiển thị tích lũy và map được dựng lại sau loop.</li><li><strong>Thuật toán cần nắm:</strong> cách tái tạo cloud toàn cục khi pose sửa, mức voxel khi xuất map, tính nhất quán giữa trajectory và map, định dạng lưu chứa thông tin để phát lại hoặc kiểm tra.</li><li><strong>Tạo:</strong> đường xuất quỹ đạo, map cloud, metadata cấu hình/source/dataset; giao diện truy vấn keyframe và phiên bản pose. Định dạng lưu cụ thể là quyết định thiết kế riêng theo <code>docs/WORKFLOW.md</code>.</li><li><strong>Kiểm chứng:</strong> xuất lại map sau loop cho cloud thay đổi theo pose đã sửa; phát lại cùng dữ liệu/cấu hình cho cùng số keyframe và quỹ đạo trong sai số định trước.</li><li><strong>Nguồn:</strong> <a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/README.md">README, Map (cloud) so với Map (global)</a>, <a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/src/mapOptmization.cpp">mapOptmization.cpp: correctPoses, publishFrames, saveMapService</a>.</li></ul>
+<h3 id="e4-tich-hop-ros-va-danh-gia-tren-du-lieu-that">E4. Tích hợp ROS và đánh giá trên dữ liệu thật</h3>
+<p><strong>Công thức chỉ số [Suy ra; phải ghi cách căn chỉnh]:</strong> sau khi chọn phép căn chỉnh <span class="math-inline">\(S\)</span> giữa quỹ đạo ước lượng <span class="math-inline">\(\hat T_i\)</span> và ground truth <span class="math-inline">\(T_i\)</span>,</p>
+<div class="math-display">\[
+\mathrm{ATE}_{\rm RMSE}
+=\sqrt{\frac1N\sum_i\|\operatorname{trans}(T_i)-\operatorname{trans}(S\hat T_i)\|^2},
+\]</div>
+<div class="math-display">\[
+E^{\rm RPE}_{i,j}
+=(T_i^{-1}T_j)^{-1}(\hat T_i^{-1}\hat T_j).
+\]</div>
+<p>Với RPE, báo riêng độ lớn tịnh tiến và góc quay của <span class="math-inline">\(E^{\rm RPE}\)</span>, kèm cách chọn cặp <span class="math-inline">\((i,j)\)</span> theo thời gian/quãng đường. Không so hai số ATE nếu phép căn chỉnh, đơn vị hoặc đoạn quỹ đạo khác nhau. Thời gian chạy mỗi scan cần so với chu kỳ scan và báo phân vị, không chỉ trung bình.</p>
+<ul><li><strong>Nền:</strong> adapter ROS ↔ dữ liệu thuật toán, QoS, clock mô phỏng, TF, hàng đợi, luồng xử lý, backpressure, thông số cấu hình, reproducibility. Lõi thuật toán nên được kiểm chứng bằng dữ liệu độc lập với ROS; cấu trúc package cụ thể sẽ quyết định khi bắt đầu code.</li><li><strong>Đường kiểm chứng:</strong> (1) dữ liệu tổng hợp có ground truth; (2) bag mẫu hợp lệ của tác giả chạy source gốc và bản triển khai trên cùng cấu hình; (3) dữ liệu dự án khi hợp đồng đầu vào A3 đạt; (4) cảnh khó: ít đặc trưng, quay nhanh, IMU nhiễu, mất gói, loop sai.</li><li><strong>Chỉ số:</strong> ATE/RPE kèm quy tắc căn chỉnh và đơn vị, độ phẳng/chồng khít map, tỷ lệ scan hợp lệ/keyframe, số tương ứng, tỷ lệ suy biến, độ trễ p50/p95/p99 mỗi module, CPU/RAM và tốc độ chạy so với tốc độ dữ liệu. Báo cả kết quả trước và sau loop/GPS.</li><li><strong>Điều kiện so sánh:</strong> cùng dữ liệu, tham số được lưu, version code, seed nếu có, phần cứng và cách đo thời gian. Dùng một baseline đo được trước khi thay thuật toán; thay đổi một module mỗi lượt để biết nguyên nhân.</li><li><strong>Nguồn:</strong> <a href="https://arxiv.org/html/2007.00258">bài báo, IV Experiments</a>, <a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/README.md">README, Sample datasets</a>, <a href="../WORKFLOW.md">quy trình dự án</a>.</li></ul>
+<h2 id="8-cac-moc-hoan-thanh-va-quyet-dinh-con-mo">8. Các mốc hoàn thành và quyết định còn mở</h2>
+<h3 id="nhung-cho-phai-doc-ca-bai-bao-lan-source-truoc-khi-code">Những chỗ phải đọc cả bài báo lẫn source trước khi code</h3>
+<div class="table-wrap"><table><thead><tr><th scope="col">Chủ đề</th><th scope="col">Bài báo trình bày</th><th scope="col">Source tại commit đối chiếu</th><th scope="col">Hệ quả cho bài học</th></tr></thead><tbody><tr><td>Kiến trúc factor</td><td>Một sơ đồ chung với IMU, LiDAR, GPS, loop</td><td>Hai graph: pose keyframe dài hạn và trạng thái IMU ngắn hạn; correction LiDAR là pose prior trong graph IMU</td><td>Vẽ cả sơ đồ ý tưởng và hai đường dữ liệu thật. <a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/README.md">README</a>, <a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/src/imuPreintegration.cpp#L350-L395">imuPreintegration.cpp</a></td></tr><tr><td>Deskew</td><td>Mô tả ước lượng chuyển động trong scan bằng IMU</td><td><code>imuDeskewInfo()</code> tích lũy gyro; <code>findPosition()</code> để tịnh tiến bằng 0</td><td>Không gộp gyro deskew với GTSAM preintegration factor. <a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/src/imageProjection.cpp#L305-L362">imageProjection.cpp</a>, <a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/src/imageProjection.cpp#L473-L510">findPosition()</a></td></tr><tr><td>Local map</td><td>Cửa sổ sub-keyframe gần đây với số lượng cố định</td><td>Chọn theo bán kính quanh pose, lấy mẫu pose, thêm keyframe mới; feature cloud được voxel hóa</td><td>Không mặc định mã dùng đúng số keyframe trong paper. <a href="https://arxiv.org/html/2007.00258">Bài báo, III-C1</a>, <a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/src/mapOptmization.cpp#L862-L938">extractNearby()</a></td></tr><tr><td>Ngưỡng keyframe</td><td>Thí nghiệm nêu 1 m / 10°</td><td>Cấu hình đối chiếu là 1 m / 0,2 rad và <code>saveFrame()</code> kiểm tra các góc</td><td>Đọc tham số, đổi đúng đơn vị; ghi version tham số khi so sánh. <a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/config/params.yaml#L75-L79">params.yaml</a>, <a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/src/mapOptmization.cpp#L1354-L1379">saveFrame()</a></td></tr><tr><td>Tối ưu LiDAR</td><td>Diễn đạt bằng tối ưu pose và residual</td><td>Hàm tên <code>LMOptimization()</code> giải normal equations và chiếu bỏ hướng suy biến; tên gọi không chứng minh có LM damping</td><td>Đọc phép tính trong hàm trước khi chọn solver tương đương. <a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/src/mapOptmization.cpp#L1158-L1279">LMOptimization()</a></td></tr><tr><td>GPS</td><td>Paper mô tả nội suy theo timestamp</td><td>Code lấy mẫu trong cửa sổ ±0,2 s rồi qua nhiều cổng chất lượng</td><td>Kiểm tra riêng đồng bộ GPS của implementation. <a href="https://arxiv.org/html/2007.00258">Bài báo, III-D</a>, <a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/src/mapOptmization.cpp#L1397-L1475">addGPSFactor()</a></td></tr><tr><td>Loop</td><td>Khả năng tích hợp bộ nhận diện nơi chốn khác</td><td>Ví dụ code dùng ứng viên theo khoảng cách/thời gian và ICP</td><td>Không mô tả Scan Context như thành phần có sẵn của baseline. <a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/README.md">README, Loop closure</a>, <a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/src/mapOptmization.cpp#L529-L643">performLoopClosure()</a></td></tr></tbody></table></div>
+<div class="table-wrap"><table><thead><tr><th scope="col">Mốc</th><th scope="col">Bắt buộc thấy được</th><th scope="col">Chưa cần ở mốc này</th></tr></thead><tbody><tr><td>M1 — dữ liệu và hình học</td><td>A0–A3; frame/time/extrinsic có bài kiểm chứng độc lập</td><td>scan matching</td></tr><tr><td>M2 — frontend</td><td>B1–B4; deskew và đặc trưng có dữ liệu tổng hợp kiểm chứng</td><td>đồ thị tối ưu</td></tr><tr><td>M3 — LiDAR odometry</td><td>C1–C4; local map, pose scan-to-map, keyframe và factor LiDAR</td><td>fusion IMU hoàn chỉnh</td></tr><tr><td>M4 — LIO-SAM cốt lõi</td><td>D1–D3; IMU prediction, LiDAR correction, hai đồ thị và quỹ đạo</td><td>GPS/loop</td></tr><tr><td>M5 — SLAM dài hạn</td><td>E1 + E3; đóng vòng được kiểm chứng và map được dựng lại</td><td>GPS nếu không có cảm biến</td></tr><tr><td>M6 — sẵn sàng so sánh thiết kế</td><td>E4; có baseline định lượng, cảnh lỗi và tài liệu tái lập</td><td>kết luận thuật toán “tối ưu nhất”</td></tr></tbody></table></div>
+<p>Các quyết định <strong>chưa chốt trong dàn ý</strong>: quy ước frame chi tiết cho implementation mới; nguồn và kiểu dữ liệu LiDAR có <code>time/ring</code>; cách xử lý scan thiếu dữ liệu; dùng thư viện tối ưu nào; mức trung thành với lựa chọn mặc định của source; biểu diễn map và định dạng lưu; có dùng GPS không; tiêu chí chấp nhận loop; bộ dữ liệu chuẩn và ngưỡng hiệu năng. Khi chốt một lựa chọn ảnh hưởng giao diện hoặc thuật toán, ghi <a href="../WORKFLOW.md">quyết định thiết kế</a> và phép đo đối chiếu.</p>
+<h3 id="danh-muc-source-goc-nen-giu-co-dinh-khi-hoc">Danh mục source gốc nên giữ cố định khi học</h3>
+<ul><li><a href="https://arxiv.org/html/2007.00258">LIO-SAM paper, arXiv:2007.00258v3, 2020</a>: định nghĩa, công thức và thí nghiệm.</li><li><a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/README.md">README tại commit 0be1fbe</a>: kiến trúc hai đồ thị và yêu cầu cảm biến.</li><li><a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/src/imageProjection.cpp">imageProjection.cpp</a>, <a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/src/featureExtraction.cpp">featureExtraction.cpp</a>, <a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/src/imuPreintegration.cpp">imuPreintegration.cpp</a>, <a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/src/mapOptmization.cpp">mapOptmization.cpp</a>: hành vi triển khai. Tên <code>mapOptmization.cpp</code> là cách viết trong source gốc.</li><li><a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/msg/cloud_info.msg">cloud_info.msg</a> và <a href="https://github.com/TixiaoShan/LIO-SAM/blob/0be1fbe6275fb8366d5b800af4fc8c76a885c869/config/params.yaml">params.yaml</a>: hợp đồng dữ liệu và cấu hình của bản gốc.</li></ul>
+<p><strong>Thứ tự làm ngay:</strong> 0.1 → A0 → A1 → A2 → A3. Chỉ sau khi đọc, làm bài tính tay và kiểm chứng được các mục này mới mở B1. Mỗi lần chỉ triển khai một module nhỏ với điều kiện hoàn thành nêu trên; dàn ý này không tự động duyệt thay các quyết định thiết kế còn mở.</p></main>
+  </div>
+  <footer>Chuyển từ <a href="lio-sam-nghien-cuu-sau.md">bản Markdown</a>. Công thức được hiển thị bằng MathJax khi trình duyệt có kết nối mạng.</footer>
+</body>
+</html>
